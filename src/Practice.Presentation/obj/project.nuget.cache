@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "CUJwYKf5EJSj9r3PFNMuKppOMaFsqxmSWcSns4agVQoyaCqq8reRtl/vJKYmwEUhQao384BF+2dzWQ46bwW3mg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Asus\\Documents\\NewPracticeTack\\src\\Practice.Presentation\\Practice.Presentation.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Asus\\.nuget\\packages\\csvhelper\\30.0.1\\csvhelper.30.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}

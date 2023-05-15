@@ -1,0 +1,12 @@
+C:\Users\Asus\Documents\NewPracticeTack\src\Practice.DataAccess\bin\Debug\net7.0\Practice.DataAccess.deps.json
+C:\Users\Asus\Documents\NewPracticeTack\src\Practice.DataAccess\bin\Debug\net7.0\Practice.DataAccess.dll
+C:\Users\Asus\Documents\NewPracticeTack\src\Practice.DataAccess\bin\Debug\net7.0\Practice.DataAccess.pdb
+C:\Users\Asus\Documents\NewPracticeTack\src\Practice.DataAccess\obj\Debug\net7.0\Practice.DataAccess.csproj.AssemblyReference.cache
+C:\Users\Asus\Documents\NewPracticeTack\src\Practice.DataAccess\obj\Debug\net7.0\Practice.DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Asus\Documents\NewPracticeTack\src\Practice.DataAccess\obj\Debug\net7.0\Practice.DataAccess.AssemblyInfoInputs.cache
+C:\Users\Asus\Documents\NewPracticeTack\src\Practice.DataAccess\obj\Debug\net7.0\Practice.DataAccess.AssemblyInfo.cs
+C:\Users\Asus\Documents\NewPracticeTack\src\Practice.DataAccess\obj\Debug\net7.0\Practice.DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\Asus\Documents\NewPracticeTack\src\Practice.DataAccess\obj\Debug\net7.0\Practice.DataAccess.dll
+C:\Users\Asus\Documents\NewPracticeTack\src\Practice.DataAccess\obj\Debug\net7.0\refint\Practice.DataAccess.dll
+C:\Users\Asus\Documents\NewPracticeTack\src\Practice.DataAccess\obj\Debug\net7.0\Practice.DataAccess.pdb
+C:\Users\Asus\Documents\NewPracticeTack\src\Practice.DataAccess\obj\Debug\net7.0\ref\Practice.DataAccess.dll
