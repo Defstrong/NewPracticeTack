@@ -15,9 +15,7 @@ public sealed class XmlFileStorage<T> : IFileStorage<T>
     {
         _filePath = filePath;
         if(!File.Exists(_filePath))
-        {
             Save(new List<T>()); 
-        }
     }
     /// <summary>
     ///     Represent method for read xml file

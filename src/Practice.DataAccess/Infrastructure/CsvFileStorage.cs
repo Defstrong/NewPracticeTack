@@ -14,11 +14,7 @@ public sealed class CsvFileStorage<T> : IFileStorage<T>
     {
         _filePath = filePath;
         if(!File.Exists(_filePath))
-        {
-            FileStream fileStraem = File.Create(_filePath);
-            fileStraem.Flush();
-            fileStraem.Dispose(); 
-        }
+            Save(new List<T>());
     }
 
     /// <summary>
@@ -26,10 +22,10 @@ public sealed class CsvFileStorage<T> : IFileStorage<T>
     /// </summary>
     public IEnumerable<T> Read()
     {
-        var reader = new StreamReader(_filePath);
+        using var reader = new StreamReader(_filePath);
         var config = new CsvConfiguration(CultureInfo.CurrentCulture);
-        var csv = new CsvReader(reader, config);
-        return csv.GetRecords<T>();
+        using var csv = new CsvReader(reader, config);
+        return csv.GetRecords<T>().ToList<T>();
     }
     /// <summary>
     /// Represent method for saver element csv file
@@ -46,9 +42,9 @@ public sealed class CsvFileStorage<T> : IFileStorage<T>
     /// </summary>
     public void Save(IEnumerable<T> entities)
     {
-        using var writer = new StreamWriter(_filePath);
+        using StreamWriter writer = new StreamWriter(_filePath);
         var config = new CsvConfiguration(CultureInfo.CurrentCulture);
-        using var csv = new CsvWriter(writer, config);
+        using CsvWriter csv = new CsvWriter(writer, config);
         csv.WriteRecords(entities);
     }
     
