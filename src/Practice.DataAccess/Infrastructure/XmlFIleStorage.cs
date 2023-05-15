@@ -16,8 +16,6 @@ public sealed class XmlFileStorage<T> : IFileStorage<T>
         _filePath = filePath;
         if(!File.Exists(_filePath))
         {
-            // TODO: Избавться от file.Create()
-            // Записать корневой XML ветку
             Save(new List<T>()); 
         }
     }
