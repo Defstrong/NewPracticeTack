@@ -22,6 +22,10 @@ public sealed record Client : LogicalEntity
     /// <summary>
     ///     Represents a last name of client.
     /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">
+    ///     The exception that is thrown when the value of an argument is outside the allowable
+    ///     range of values as defined by the invoked method.
+    /// </exception>
     public string LastName 
     {
         get => _lastName ?? string.Empty;
@@ -31,6 +35,10 @@ public sealed record Client : LogicalEntity
     /// <summary>
     ///     Represent a address of client
     /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">
+    ///     The exception that is thrown when the value of an argument is outside the allowable
+    ///     range of values as defined by the invoked method.
+    /// </exception>
     public string Address
     {
         get => _address ?? string.Empty;
@@ -40,6 +48,10 @@ public sealed record Client : LogicalEntity
     /// <summary>
     ///     Represent a phone number of client
     /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">
+    ///     The exception that is thrown when the value of an argument is outside the allowable
+    ///     range of values as defined by the invoked method.
+    /// </exception>
     public string PhoneNumber
     {
         get => _phoneNumber ?? string.Empty;

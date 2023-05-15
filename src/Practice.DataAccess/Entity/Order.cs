@@ -20,17 +20,27 @@ public sealed record Order : LogicalEntity
     /// <summary>
     ///     Represent description of order
     /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">
+    ///     The exception that is thrown when the value of an argument is outside the allowable
+    ///     range of values as defined by the invoked method.
+    /// </exception>
     public string Description
     {
         get => _about ?? string.Empty;
-        init => _about = value is {Length: > 0} ? value : throw new ArgumentOutOfRangeException(nameof(value));
+        init => _about = value is {Length: > 0} 
+        ? value : throw new ArgumentOutOfRangeException(nameof(value));
     }
     /// <summary>
     ///     Represent price of order
     /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">
+    ///     The exception that is thrown when the value of an argument is outside the allowable
+    ///     range of values as defined by the invoked method.
+    /// </exception>
     public int Price
     {
         get => _price ?? 0;
-        init => _price = value > 0 ? value : throw new ArgumentOutOfRangeException(nameof(value));
+        init => _price = value > 0 
+        ? value : throw new ArgumentOutOfRangeException(nameof(value));
     }
 }
