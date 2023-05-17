@@ -75,8 +75,7 @@ public class BaseRepository<T> : IBaseRepository<T>
     /// <summary>
     ///     Represent method for get all data
     /// </summary>
-    public IEnumerable<T> GetAll()
-        => _entityList;
+    public IEnumerable<T> GetAll() => _entityList;
     /// <summary>
     ///     Represent method for updata data
     /// </summary>
