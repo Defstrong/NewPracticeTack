@@ -3,7 +3,7 @@ namespace Practice.DataAccess;
 /// Represent interface for monipulation files
 /// </summary>
 public interface IFileStorage<T>
-    where T : IBaseDbEntity
+    where T : DbEntity 
 {
     public void Save(T entities);
     public void Save(IEnumerable<T> entities);

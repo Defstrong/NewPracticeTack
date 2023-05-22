@@ -9,7 +9,7 @@ namespace Practice.DataAccess;
 ///     Type entity
 /// </typeparam>
 public sealed class CsvFileStorage<T> : IFileStorage<T>
-    where T : IBaseDbEntity
+    where T : DbEntity
 {
     private string _filePath = string.Empty;
     /// <summary>

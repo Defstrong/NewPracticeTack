@@ -4,7 +4,7 @@ namespace Practice.DataAccess;
 ///</summary>
 ///<typeparam name = "T"> Entity type </typeparam>
 public static class FileStorageFactory<T>
-    where T : IBaseDbEntity
+    where T : DbEntity 
 {
     ///<summary>
     ///     Represent CsvFileStorage relization for IFileStorage interface

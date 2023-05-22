@@ -17,13 +17,10 @@ namespace Practice.DataAccess;
 ///<param name = "PhoneNumber">
 ///     Client Phone Number
 ///</param>
-public record struct DbClient
-    (
-        string FirstName,
-        string LastName,
-        string Address,
-        string PhoneNumber
-    ) : IBaseDbEntity
+public record DbClient: DbEntity
 {
-    public Guid Id { get ; set; } = Guid.Empty;
+    public string FirstName {get; set;}
+    public string LastName {get; set;}
+    public string Address {get; set;}
+    public string PhoneNumber {get; set;}
 }

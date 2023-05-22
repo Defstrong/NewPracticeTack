@@ -11,12 +11,10 @@ namespace Practice.DataAccess;
 /// <param name="Price">
 ///     Order price
 /// </param>
-public record struct DbOrder
-    (
-        DateTime DateOrder,
-        string Description,
-        decimal Price
-    ) : IBaseDbEntity
+public record DbOrder : DbEntity
 {
-    public Guid Id { get ; set; } = Guid.Empty;
+    public DateTime DateOrder {get; set;}
+    public string? Description {get; set;}
+    public decimal Price {get; set;}
+    public string PhoneNumberClient {get; set;}
 } 

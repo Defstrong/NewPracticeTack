@@ -6,9 +6,9 @@ namespace Practice.DataAccess;
 ///     Entity type
 ///</typeparam>
 public class BaseRepository<T> : IBaseRepository<T>
-    where T : IBaseDbEntity
+    where T : DbEntity
 {
-    private List<T> _entityList = new List<T>();
+    protected List<T> _entityList = new List<T>();
     private IFileStorage<T> _fileStorage;
     public BaseRepository(IFileStorage<T> fileStorage)
     {
@@ -18,8 +18,7 @@ public class BaseRepository<T> : IBaseRepository<T>
     /// <summary>
     ///     Represent method for commit all data
     /// </summary>
-    private void Commit() =>
-        _fileStorage.Save(_entityList);
+    private void Commit() => _fileStorage.Save(_entityList);
     /// <summary>
     ///     Represent method for create data for save
     /// </summary>

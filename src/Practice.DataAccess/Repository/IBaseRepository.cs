@@ -9,7 +9,7 @@ namespace Practice.DataAccess;
 ///</param>
 
 public interface IBaseRepository<T>
-    where T : IBaseDbEntity
+    where T : DbEntity
 {
     public Guid Create(T entity);
     public T Get(Guid id);

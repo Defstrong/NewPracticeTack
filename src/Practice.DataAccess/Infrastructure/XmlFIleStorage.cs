@@ -1,12 +1,10 @@
 using System.Xml.Serialization;
-using System.Xml;
-using System.Xml.Linq;
 namespace Practice.DataAccess;
 /// <summary>
 ///     Represent class for monipulation xml file
 /// </summary>
 public sealed class XmlFileStorage<T> : IFileStorage<T>
-    where T : IBaseDbEntity
+    where T : DbEntity 
 {
     private readonly string _filePath = string.Empty;
     private string? filePath;
