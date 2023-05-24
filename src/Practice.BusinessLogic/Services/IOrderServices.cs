@@ -5,12 +5,14 @@ namespace Practice.BusinessLogic;
 /// </summary>
 public interface IOrderServices
 {
-    void CreateOrder(string phoneNumberClient, Order order);
+    Guid CreateOrder(string phoneNumberClient, Order order);
+    bool DeleteOrder(Guid orderId);
     Order GetOrder(string description);
     Order GetOrder(Guid orderId);
     IEnumerable<Order> GetOrders();
-    IEnumerable<Order> GetOrders(int take, int skip);
+    IEnumerable<Order> GetOrders(Guid idClient);
+    IEnumerable<Order> GetOrders(int take, int skip, Guid idClient);
     IEnumerable<Order> GetOrders(DateTime fromDate, DateTime toDate);
-    int GetCountOrder();
+    int GetCountOrder(Guid idClient);
     void UpdateOrder(Order order, Guid orderId);
 }

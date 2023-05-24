@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfDbOrder xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DbOrder>
+    <Id>39639b2f-5554-404a-8952-ae1e8312f20a</Id>
+    <IdClient>c64e14ad-6b07-4809-a0c0-dc6dae4b1424</IdClient>
+    <DateOrder>2023-05-24T18:40:51.423757+05:00</DateOrder>
+    <Description>aldjflja</Description>
+    <Price>123</Price>
+    <PhoneNumberClient />
+  </DbOrder>
+  <DbOrder>
+    <Id>ad760c4a-f162-4ca4-a393-daf5e15c08de</Id>
+    <IdClient>c64e14ad-6b07-4809-a0c0-dc6dae4b1424</IdClient>
+    <DateOrder>2023-05-24T18:40:51.423757+05:00</DateOrder>
+    <Description>aldjflja</Description>
+    <Price>123</Price>
+    <PhoneNumberClient />
+  </DbOrder>
+  <DbOrder>
+    <Id>f4258337-5fd9-4393-b8d1-0ec81dea7526</Id>
+    <IdClient>c64e14ad-6b07-4809-a0c0-dc6dae4b1424</IdClient>
+    <DateOrder>2023-05-24T18:40:51.423757+05:00</DateOrder>
+    <Description>aldjflja</Description>
+    <Price>123</Price>
+    <PhoneNumberClient />
+  </DbOrder>
+  <DbOrder>
+    <Id>8c395498-8484-4951-97d7-a91a6aad593a</Id>
+    <IdClient>c64e14ad-6b07-4809-a0c0-dc6dae4b1424</IdClient>
+    <DateOrder>2023-05-24T18:40:51.423757+05:00</DateOrder>
+    <Description>aldjflja</Description>
+    <Price>123</Price>
+    <PhoneNumberClient />
+  </DbOrder>
+  <DbOrder>
+    <Id>0ff06d8a-3367-47e4-8578-e14319e45a97</Id>
+    <IdClient>c64e14ad-6b07-4809-a0c0-dc6dae4b1424</IdClient>
+    <DateOrder>2023-05-24T18:40:51.423757+05:00</DateOrder>
+    <Description>aldjflja</Description>
+    <Price>123</Price>
+    <PhoneNumberClient />
+  </DbOrder>
+  <DbOrder>
+    <Id>71ce76f0-3b04-4a84-b688-eaf3b2577429</Id>
+    <IdClient>c64e14ad-6b07-4809-a0c0-dc6dae4b1424</IdClient>
+    <DateOrder>2023-05-24T18:40:51.423757+05:00</DateOrder>
+    <Description>aldjflja</Description>
+    <Price>123</Price>
+    <PhoneNumberClient />
+  </DbOrder>
+  <DbOrder>
+    <Id>fce76773-19d4-409c-8cb5-e0b5357aca30</Id>
+    <IdClient>c64e14ad-6b07-4809-a0c0-dc6dae4b1424</IdClient>
+    <DateOrder>2023-05-24T18:40:51.423757+05:00</DateOrder>
+    <Description>aldjflja</Description>
+    <Price>123</Price>
+    <PhoneNumberClient />
+  </DbOrder>
+  <DbOrder>
+    <Id>acdd7e2b-c9d0-4872-bcb2-f7c44e80e983</Id>
+    <IdClient>c64e14ad-6b07-4809-a0c0-dc6dae4b1424</IdClient>
+    <DateOrder>2023-05-24T18:40:51.423757+05:00</DateOrder>
+    <Description>aldjflja</Description>
+    <Price>123</Price>
+    <PhoneNumberClient />
+  </DbOrder>
+  <DbOrder>
+    <Id>084d6acd-ebb6-419b-b5c5-99384384d948</Id>
+    <IdClient>c64e14ad-6b07-4809-a0c0-dc6dae4b1424</IdClient>
+    <DateOrder>2023-05-24T18:40:51.423757+05:00</DateOrder>
+    <Description>aldjflja</Description>
+    <Price>123</Price>
+    <PhoneNumberClient />
+  </DbOrder>
+  <DbOrder>
+    <Id>6d069d3e-81c5-4ac8-a19b-8511634d781e</Id>
+    <IdClient>c64e14ad-6b07-4809-a0c0-dc6dae4b1424</IdClient>
+    <DateOrder>2023-05-24T18:40:51.423757+05:00</DateOrder>
+    <Description>aldjflja</Description>
+    <Price>123</Price>
+    <PhoneNumberClient />
+  </DbOrder>
+  <DbOrder>
+    <Id>c8686433-0d0f-4b3f-a9fb-aabd87b93818</Id>
+    <IdClient>c64e14ad-6b07-4809-a0c0-dc6dae4b1424</IdClient>
+    <DateOrder>2023-05-24T18:40:51.423757+05:00</DateOrder>
+    <Description>aldjflja</Description>
+    <Price>123</Price>
+    <PhoneNumberClient />
+  </DbOrder>
+  <DbOrder>
+    <Id>3d5e996e-e1b2-493d-ab70-84f099766110</Id>
+    <IdClient>c64e14ad-6b07-4809-a0c0-dc6dae4b1424</IdClient>
+    <DateOrder>2023-05-24T18:40:51.423757+05:00</DateOrder>
+    <Description>aldjflja</Description>
+    <Price>123</Price>
+    <PhoneNumberClient />
+  </DbOrder>
+  <DbOrder>
+    <Id>964863f5-29e4-4a07-a09b-6b1080654056</Id>
+    <IdClient>c64e14ad-6b07-4809-a0c0-dc6dae4b1424</IdClient>
+    <DateOrder>2023-05-24T18:40:51.423757+05:00</DateOrder>
+    <Description>aldjflja</Description>
+    <Price>123</Price>
+    <PhoneNumberClient />
+  </DbOrder>
+  <DbOrder>
+    <Id>6998e8fa-dd70-4639-9782-84793d99f058</Id>
+    <IdClient>c64e14ad-6b07-4809-a0c0-dc6dae4b1424</IdClient>
+    <DateOrder>2023-05-24T18:40:51.423757+05:00</DateOrder>
+    <Description>aldjflja</Description>
+    <Price>123</Price>
+    <PhoneNumberClient />
+  </DbOrder>
+  <DbOrder>
+    <Id>bbe7062f-d457-4d58-95de-8b6e2f858545</Id>
+    <IdClient>c64e14ad-6b07-4809-a0c0-dc6dae4b1424</IdClient>
+    <DateOrder>2023-05-24T18:40:51.423757+05:00</DateOrder>
+    <Description>aldjflja</Description>
+    <Price>123</Price>
+    <PhoneNumberClient />
+  </DbOrder>
+  <DbOrder>
+    <Id>79742351-b9ec-406f-a024-b53372615dd6</Id>
+    <IdClient>c64e14ad-6b07-4809-a0c0-dc6dae4b1424</IdClient>
+    <DateOrder>2023-05-24T18:40:51.423757+05:00</DateOrder>
+    <Description>aldjflja</Description>
+    <Price>123</Price>
+    <PhoneNumberClient />
+  </DbOrder>
+  <DbOrder>
+    <Id>f3bbfb92-8f09-4b3e-87ec-fc6d73cc746d</Id>
+    <IdClient>c64e14ad-6b07-4809-a0c0-dc6dae4b1424</IdClient>
+    <DateOrder>2023-05-24T18:40:51.423757+05:00</DateOrder>
+    <Description>aldjflja</Description>
+    <Price>123</Price>
+    <PhoneNumberClient />
+  </DbOrder>
+  <DbOrder>
+    <Id>a933db1b-11cb-4097-8701-c99b99b4d381</Id>
+    <IdClient>c64e14ad-6b07-4809-a0c0-dc6dae4b1424</IdClient>
+    <DateOrder>2023-05-24T18:40:51.423757+05:00</DateOrder>
+    <Description>aldjflja</Description>
+    <Price>123</Price>
+    <PhoneNumberClient />
+  </DbOrder>
+  <DbOrder>
+    <Id>10288101-13bb-49db-91f2-b79f8e0d914c</Id>
+    <IdClient>c64e14ad-6b07-4809-a0c0-dc6dae4b1424</IdClient>
+    <DateOrder>2023-05-24T18:40:51.423757+05:00</DateOrder>
+    <Description>aldjflja</Description>
+    <Price>123</Price>
+    <PhoneNumberClient />
+  </DbOrder>
+  <DbOrder>
+    <Id>dc9c35b1-0e41-4600-b099-0db4828669e8</Id>
+    <IdClient>c64e14ad-6b07-4809-a0c0-dc6dae4b1424</IdClient>
+    <DateOrder>2023-05-24T18:40:51.423757+05:00</DateOrder>
+    <Description>aldjflja</Description>
+    <Price>123</Price>
+    <PhoneNumberClient />
+  </DbOrder>
+  <DbOrder>
+    <Id>bd00b800-06ae-48db-96c4-8a31e8570a4a</Id>
+    <IdClient>c64e14ad-6b07-4809-a0c0-dc6dae4b1424</IdClient>
+    <DateOrder>2023-05-24T18:40:51.423757+05:00</DateOrder>
+    <Description>aldjflja</Description>
+    <Price>123</Price>
+    <PhoneNumberClient />
+  </DbOrder>
+  <DbOrder>
+    <Id>414b86b9-55c5-4e54-84f0-f9d323a8d8f0</Id>
+    <IdClient>c64e14ad-6b07-4809-a0c0-dc6dae4b1424</IdClient>
+    <DateOrder>2023-05-24T18:40:51.423757+05:00</DateOrder>
+    <Description>aldjflja</Description>
+    <Price>123</Price>
+    <PhoneNumberClient />
+  </DbOrder>
+  <DbOrder>
+    <Id>063fd37c-5aee-426d-84ea-695333107e45</Id>
+    <IdClient>c64e14ad-6b07-4809-a0c0-dc6dae4b1424</IdClient>
+    <DateOrder>2023-05-24T18:40:51.423757+05:00</DateOrder>
+    <Description>aldjflja</Description>
+    <Price>123</Price>
+    <PhoneNumberClient />
+  </DbOrder>
+  <DbOrder>
+    <Id>5eb24f19-4d94-46d3-8bdc-a329acd4c395</Id>
+    <IdClient>c64e14ad-6b07-4809-a0c0-dc6dae4b1424</IdClient>
+    <DateOrder>2023-05-24T18:40:51.423757+05:00</DateOrder>
+    <Description>aldjflja</Description>
+    <Price>123</Price>
+    <PhoneNumberClient />
+  </DbOrder>
+  <DbOrder>
+    <Id>ea7ce4c2-519b-4031-bb38-b709cddf66a8</Id>
+    <IdClient>c64e14ad-6b07-4809-a0c0-dc6dae4b1424</IdClient>
+    <DateOrder>2023-05-24T18:40:51.423757+05:00</DateOrder>
+    <Description>aldjflja</Description>
+    <Price>123</Price>
+    <PhoneNumberClient />
+  </DbOrder>
+  <DbOrder>
+    <Id>417ad8a7-b19c-41ff-9d32-f99da7b8689d</Id>
+    <IdClient>c64e14ad-6b07-4809-a0c0-dc6dae4b1424</IdClient>
+    <DateOrder>2023-05-24T18:40:51.423757+05:00</DateOrder>
+    <Description>aldjflja</Description>
+    <Price>123</Price>
+    <PhoneNumberClient />
+  </DbOrder>
+  <DbOrder>
+    <Id>282946e4-8bd3-4b82-950a-9ac206a2dc6b</Id>
+    <IdClient>c64e14ad-6b07-4809-a0c0-dc6dae4b1424</IdClient>
+    <DateOrder>2023-05-24T18:40:51.423757+05:00</DateOrder>
+    <Description>aldjflja</Description>
+    <Price>123</Price>
+    <PhoneNumberClient />
+  </DbOrder>
+  <DbOrder>
+    <Id>4e18513d-bfbb-48b7-9dfa-532818954ab2</Id>
+    <IdClient>c64e14ad-6b07-4809-a0c0-dc6dae4b1424</IdClient>
+    <DateOrder>2023-05-24T18:40:51.423757+05:00</DateOrder>
+    <Description>aldjflja</Description>
+    <Price>123</Price>
+    <PhoneNumberClient />
+  </DbOrder>
+  <DbOrder>
+    <Id>009436b6-3aee-41c5-b24e-3139a4e82dd0</Id>
+    <IdClient>c64e14ad-6b07-4809-a0c0-dc6dae4b1424</IdClient>
+    <DateOrder>2023-05-24T18:40:51.423757+05:00</DateOrder>
+    <Description>aldjflja</Description>
+    <Price>123</Price>
+    <PhoneNumberClient />
+  </DbOrder>
+  <DbOrder>
+    <Id>c5f947ed-114f-44f5-9224-6a5ce8375411</Id>
+    <IdClient>c64e14ad-6b07-4809-a0c0-dc6dae4b1424</IdClient>
+    <DateOrder>2023-05-24T18:40:51.423757+05:00</DateOrder>
+    <Description>aldjflja</Description>
+    <Price>123</Price>
+    <PhoneNumberClient />
+  </DbOrder>
+  <DbOrder>
+    <Id>c51f89e9-1b19-46e7-8e7d-fc2d6ef36994</Id>
+    <IdClient>c64e14ad-6b07-4809-a0c0-dc6dae4b1424</IdClient>
+    <DateOrder>2023-05-24T18:40:51.423757+05:00</DateOrder>
+    <Description>aldjflja</Description>
+    <Price>123</Price>
+    <PhoneNumberClient />
+  </DbOrder>
+  <DbOrder>
+    <Id>fc8a1c23-cdf1-4cf6-b049-4dcb12999ad2</Id>
+    <IdClient>c64e14ad-6b07-4809-a0c0-dc6dae4b1424</IdClient>
+    <DateOrder>2023-05-24T18:40:51.423757+05:00</DateOrder>
+    <Description>aldjflja</Description>
+    <Price>123</Price>
+    <PhoneNumberClient />
+  </DbOrder>
+  <DbOrder>
+    <Id>7f75aeef-0812-4767-a2a0-827b65f9540e</Id>
+    <IdClient>c64e14ad-6b07-4809-a0c0-dc6dae4b1424</IdClient>
+    <DateOrder>2023-05-24T18:40:51.423757+05:00</DateOrder>
+    <Description>aldjflja</Description>
+    <Price>123</Price>
+    <PhoneNumberClient />
+  </DbOrder>
+  <DbOrder>
+    <Id>9de1c560-09d4-4b39-a263-599b6655d23c</Id>
+    <IdClient>c64e14ad-6b07-4809-a0c0-dc6dae4b1424</IdClient>
+    <DateOrder>2023-05-24T18:40:51.423757+05:00</DateOrder>
+    <Description>aldjflja</Description>
+    <Price>123</Price>
+    <PhoneNumberClient />
+  </DbOrder>
+  <DbOrder>
+    <Id>606e3709-fc9c-413e-a725-d55ffa118854</Id>
+    <IdClient>c64e14ad-6b07-4809-a0c0-dc6dae4b1424</IdClient>
+    <DateOrder>2023-05-24T18:40:51.423757+05:00</DateOrder>
+    <Description>aldjflja</Description>
+    <Price>123</Price>
+    <PhoneNumberClient />
+  </DbOrder>
+  <DbOrder>
+    <Id>7d67c5c2-a0a1-4267-ad50-e885cf6adde1</Id>
+    <IdClient>c64e14ad-6b07-4809-a0c0-dc6dae4b1424</IdClient>
+    <DateOrder>2023-05-24T18:40:51.423757+05:00</DateOrder>
+    <Description>aldjflja</Description>
+    <Price>123</Price>
+    <PhoneNumberClient />
+  </DbOrder>
+</ArrayOfDbOrder>

@@ -6,7 +6,6 @@ namespace Practice.DataAccess;
 
 public  record Order : LogicalEntity
 {
-
     private readonly DateTime? _dateOrder;
     private readonly string? _descritption;
     private readonly decimal? _price;
@@ -43,5 +42,9 @@ public  record Order : LogicalEntity
         get => _price ?? 0.0m;
         init => _price = value > 0 
         ? value : throw new ArgumentOutOfRangeException(nameof(value));
+    }
+    public override string ToString()
+    {
+        return $"Date order {DateOrder}\tDescription {Description}\tPrice {Price}";
     }
 }

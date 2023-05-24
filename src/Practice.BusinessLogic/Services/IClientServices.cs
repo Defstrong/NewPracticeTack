@@ -3,7 +3,7 @@ namespace Practice.BusinessLogic;
 
 public interface IClientServices
 {
-     void CreateClient(Client client);
+     Guid CreateClient(Client client);
      bool DeleteClient(Guid id);
      Client GetClient(Guid orderId);
      IEnumerable<Client> GetClients();

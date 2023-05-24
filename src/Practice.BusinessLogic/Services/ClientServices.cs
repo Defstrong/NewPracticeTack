@@ -9,10 +9,10 @@ public sealed class ClientServices : IClientServices
     {
         _clientRepository = clientRepository;
     }
-    public void CreateClient(Client client)
+    public Guid CreateClient(Client client)
     {
         ArgumentNullException.ThrowIfNull(client);
-        _clientRepository.Create(client.ClientToDbClient()); 
+        return _clientRepository.Create(client.ClientToDbClient()); 
     }
     public bool DeleteClient(Guid clientId)
     {

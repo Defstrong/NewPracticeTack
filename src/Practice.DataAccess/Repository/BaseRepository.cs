@@ -91,6 +91,9 @@ public class BaseRepository<T> : IBaseRepository<T>
     public void Update(T entity, Guid id)
     {
         var oldData = _entityList.Single(x => x.Id == id);
-        oldData = entity;
+        entity.Id = oldData.Id;
+        _entityList.Remove(oldData);
+        _entityList.Add(entity);
+        Commit();
     }
 }
