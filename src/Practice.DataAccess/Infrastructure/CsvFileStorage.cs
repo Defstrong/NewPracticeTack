@@ -126,9 +126,10 @@ public sealed class CsvFileStorage<T> : IFileStorage<T>
     /// </exception>
     public async Task SaveAsync(IEnumerable<T> entities)
     {
+        // foreach(var ii in entities)
         await using StreamWriter writer = new StreamWriter(_filePath);
         var config = new CsvConfiguration(CultureInfo.CurrentCulture);
         await using CsvWriter csv = new CsvWriter(writer, config);
-        csv.WriteRecords(entities);
+        await csv.WriteRecordsAsync(entities);
     }
 }

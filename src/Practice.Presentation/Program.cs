@@ -1,9 +1,9 @@
-﻿using Practice.DataAccess;
+using Practice.DataAccess;
 using Practice.BusinessLogic;
-string _filePathOrder = "./xmlOrder.xml";
-string _filePathClient = "./xmlClient.xml";
-var fileStorageOrder = await FileStorageFactory<DbOrder>.GetXmlFileStorageAsync(_filePathOrder);
-var fileStorageClient = await FileStorageFactory<DbClient>.GetXmlFileStorageAsync(_filePathClient);
+string _filePathOrder = "./xmlOrder.csv";
+string _filePathClient = "./xmlClient.csv";
+var fileStorageOrder = await FileStorageFactory<DbOrder>.GetCsvFileStorageAsync(_filePathOrder);
+var fileStorageClient = await FileStorageFactory<DbClient>.GetCsvFileStorageAsync(_filePathClient);
 var orderRepository = new OrderRepository(fileStorageOrder);
 var clientRepository = new ClientRepository(fileStorageClient);
 var clientServices = new ClientServices(clientRepository);
@@ -12,6 +12,7 @@ var operatorLogic = new OperatorLogic(orderServices);
 
 var client = new Client {FirstName = "Bob", LastName = "Lee", 
     Address = "Another", PhoneNumber = "94832094830"};
+
 var _idClient = await clientServices.CreateClientAsync(client);
 
 int N = 100;
@@ -25,7 +26,7 @@ while(N-- > 0)
         continue;
     }
     else if(userAnswer == "Client")
-        Console.WriteLine(ClientAction(_idClient));
+        Console.WriteLine(await ClientActionAsync(_idClient));
     else if(userAnswer == "Operator")
         Console.WriteLine(OperatorAction(_idClient));
     else if(userAnswer == "Exit")
@@ -39,13 +40,13 @@ async Task<string> ClientActionAsync(Guid idClient)
     Console.Write("Enter command to action: ");
     string? commandClient = Console.ReadLine();
     if(commandClient == "Get order")
-        return GetOrderAsync(idClient);
+        return await GetOrderAsync(idClient);
     else if(commandClient == "Get orders")
         return await GetOrdersAsync(idClient);
     else if(commandClient == "Delete order")
-        await DeleteOrderAsync(idClient);
+        return await DeleteOrderAsync(idClient);
     else if(commandClient == "Update order")
-        await ClientUpdateOrderAsync(idClient);
+        return await ClientUpdateOrderAsync(idClient);
     else
         return await Task.Run(() => "Error");
 }
@@ -68,7 +69,8 @@ async Task<string> GetOrderAsync(Guid idClient)
     string? idOrder = Console.ReadLine();
     if(string.IsNullOrEmpty(idOrder))
         return "Error id order";
-    Console.WriteLine(orderServices?.GetOrderAsync(Guid.Parse(idOrder)).ToString());
+    var getOrder = await orderServices?.GetOrderAsync(Guid.Parse(idOrder));
+    Console.WriteLine(getOrder.ToString());
     return "Get order completed successfully";
 }
 async Task<string> GetOrdersAsync(Guid idClient)

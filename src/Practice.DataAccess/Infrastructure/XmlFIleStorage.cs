@@ -18,10 +18,13 @@ public sealed class XmlFileStorage<T> : IFileStorage<T>
     public XmlFileStorage(string filePath)
     {
         _filePath = filePath;
-        var taskRun = Task.Run(async () =>
+        var taskRun = Task.Run(() =>
         {
             if(!File.Exists(_filePath))
-                await SaveAsync(new List<T>()); 
+                Task.Run(() =>
+                {
+                    return SaveAsync(new List<T>()); 
+                });
         });
         taskRun.Wait();
     }

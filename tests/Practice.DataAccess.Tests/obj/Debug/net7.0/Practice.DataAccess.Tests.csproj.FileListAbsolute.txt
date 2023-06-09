@@ -101,3 +101,5 @@ C:\Users\Asus\Documents\NewPracticeTack\tests\Practice.DataAccess.Tests\obj\Debu
 C:\Users\Asus\Documents\NewPracticeTack\tests\Practice.DataAccess.Tests\obj\Debug\net7.0\Practice.DataAccess.Tests.pdb
 C:\Users\Asus\Documents\NewPracticeTack\tests\Practice.DataAccess.Tests\obj\Debug\net7.0\Practice.DataAccess.Tests.genruntimeconfig.cache
 C:\Users\Asus\Documents\NewPracticeTack\tests\Practice.DataAccess.Tests\obj\Debug\net7.0\ref\Practice.DataAccess.Tests.dll
+C:\Users\Asus\Documents\NewPracticeTack\tests\Practice.DataAccess.Tests\bin\Debug\net7.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\Asus\Documents\NewPracticeTack\tests\Practice.DataAccess.Tests\bin\Debug\net7.0\System.Linq.Async.dll

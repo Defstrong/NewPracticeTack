@@ -28,14 +28,15 @@ public sealed class OrderServices : IOrderServices
         var client = await _clientRepository.GetClientAsync(phoneNumberClient);
         if(client is not null)
         {
-            await Task.Run(async () =>
+            return await Task.Run(async () =>
             {
                 var dbOrder = order.OrderToDbOrder();
                 dbOrder.IdClient = client.Id;
                 return await _orderRepository.CreateAsync(dbOrder);
             });
         }
-        throw new Exception();
+        else
+            throw new Exception();
     }
     public async Task<bool> DeleteOrderAsync(Guid orderId)
     {

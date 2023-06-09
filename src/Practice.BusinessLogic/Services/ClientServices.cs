@@ -11,8 +11,23 @@ public sealed class ClientServices : IClientServices
     }
     public async Task<Guid> CreateClientAsync(Client client)
     {
-        ArgumentNullException.ThrowIfNull(client);
-        return await _clientRepository.CreateAsync(client.ClientToDbClient()); 
+        if(client is not null)
+        {
+            return await Task.Run(async () =>
+            {
+                var dbClient = client.ClientToDbClient();
+                return await _clientRepository.CreateAsync(dbClient);
+            });
+        }
+        else
+            throw new Exception();
+        // ArgumentNullException.ThrowIfNull(client);
+        // return await Task.Run(async () =>
+        // {
+        //     var dbClient = client.ClientToDbClient();
+        //     return await _clientRepository.CreateAsync(dbClient);
+        // });
+        // return await _clientRepository.CreateAsync(client.ClientToDbClient()); 
     }
     public async Task<bool> DeleteClientAsync(Guid clientId)
     {

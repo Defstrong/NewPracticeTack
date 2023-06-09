@@ -22,7 +22,7 @@ public class BaseRepository<T> : IBaseRepository<T>
     /// <summary>
     ///     Represent method for commit all data
     /// </summary>
-    private Task CommitAsync() => _fileStorage.SaveAsync(_entityList);
+    private async Task CommitAsync() => await _fileStorage.SaveAsync(_entityList);
     /// <summary>
     ///     Represent method for create data for save
     /// </summary>
@@ -36,9 +36,9 @@ public class BaseRepository<T> : IBaseRepository<T>
     /// <returned>
     ///     Return Id
     /// </returned>
-    public Task<Guid> CreateAsync(T entity)
+    public async Task<Guid> CreateAsync(T entity)
     {
-        return Task.Run(() =>
+        return await Task.Run(() =>
         {
             ArgumentNullException.ThrowIfNull(nameof(entity));
             entity.Id = Guid.NewGuid();
