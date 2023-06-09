@@ -23,7 +23,13 @@ public sealed class CsvFileStorage<T> : IFileStorage<T>
     {
         _filePath = filePath;
         if(!File.Exists(_filePath))
-            Save(new List<T>());
+        {
+            var saveTask = Task.Run(() =>
+            {
+                return SaveAsync(new List<T>());
+            });
+            saveTask.Wait();
+        }
     }
 
     /// <summary>
@@ -45,13 +51,13 @@ public sealed class CsvFileStorage<T> : IFileStorage<T>
     /// <exception cref="ArgumentNullException">
     ///     path is null.
     /// </exception>
-    public IEnumerable<T> Read()
+    public IAsyncEnumerable<T> ReadAsync()
     {
         using var reader = new StreamReader(_filePath);
         var config = new CsvConfiguration(CultureInfo.CurrentCulture);
         using var csv = new CsvReader(reader, config);
         //Don't work with IEnumerable<T>
-        return csv.GetRecords<T>().ToList<T>();
+        return csv.GetRecordsAsync<T>();
     }
     /// <summary>
     ///     Represent method for saver element csv file
@@ -82,11 +88,11 @@ public sealed class CsvFileStorage<T> : IFileStorage<T>
     /// <exception cref="SecurityException">
     ///     The caller does not have the required permission.
     /// </exception>
-    public void Save(T entity)
+    public async Task SaveAsync(T entity)
     {
-        using var writer = new StreamWriter(_filePath);
+        await using var writer = new StreamWriter(_filePath);
         var config = new CsvConfiguration(CultureInfo.CurrentCulture);
-        using var csv = new CsvWriter(writer, config);
+        await using var csv = new CsvWriter(writer, config);
         csv.WriteRecord(entity);
     }
     /// <summary>
@@ -118,12 +124,11 @@ public sealed class CsvFileStorage<T> : IFileStorage<T>
     /// <exception cref="SecurityException">
     ///     The caller does not have the required permission.
     /// </exception>
-    public void Save(IEnumerable<T> entities)
+    public async Task SaveAsync(IEnumerable<T> entities)
     {
-        using StreamWriter writer = new StreamWriter(_filePath);
+        await using StreamWriter writer = new StreamWriter(_filePath);
         var config = new CsvConfiguration(CultureInfo.CurrentCulture);
-        using CsvWriter csv = new CsvWriter(writer, config);
+        await using CsvWriter csv = new CsvWriter(writer, config);
         csv.WriteRecords(entities);
     }
-    
 }

@@ -13,9 +13,13 @@ public static class FileStorageFactory<T>
     ///<returns>
     ///     CsvFileStorage implementation
     ///</returns>
-    public static IFileStorage<T> GetCsvFileStorage(string filePath)
+    public static Task<IFileStorage<T>> GetCsvFileStorageAsync(string filePath)
     {
-        return new CsvFileStorage<T>(filePath);
+        return Task.Run(() =>
+        {
+            IFileStorage<T> fileStorage= new CsvFileStorage<T>(filePath);
+            return fileStorage;
+        });
     }
     ///<summary>
     ///     Represent XmlFileStorage relization for IFileStorage interface
@@ -24,8 +28,12 @@ public static class FileStorageFactory<T>
     ///<returns>
     ///     XmlFileStorage implementation
     ///</returns>
-    public static IFileStorage<T> GetXmlFileStorage(string filePath)
+    public static Task<IFileStorage<T>> GetXmlFileStorageAsync(string filePath)
     {
-        return new XmlFileStorage<T>(filePath);
+        return Task.Run(() => 
+        {
+            IFileStorage<T> fileStorage = new XmlFileStorage<T>(filePath);
+            return fileStorage;
+        });
     }
 }

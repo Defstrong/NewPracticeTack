@@ -5,21 +5,34 @@ public sealed class ClientRepository : BaseRepository<DbClient>, IClientReposito
     public ClientRepository(IFileStorage<DbClient> fileStorage)
         :base(fileStorage)
         {
-
         }
-
-    public IEnumerable<DbClient> GetByAddress(string address)
-        => _entityList.Where(client => client.Address == address);
-    public IEnumerable<DbClient> GetByFirstName(string firstName)
-        => _entityList.Where(client => client.FirstName == firstName);
-    public IEnumerable<DbClient> GetByLastName(string lastName)
-        => _entityList.Where(client => client.LastName == lastName);
-    public IEnumerable<DbClient> GetByPhoneNumber(string phoneNumber)
-        => _entityList.Where(client => client.PhoneNumber == phoneNumber);
-    public DbClient GetClient(string phoneNumberClient)
-        => _entityList.First(client => client.PhoneNumber == phoneNumberClient);
-    public DbClient GetClient(Guid idClient)
-        => _entityList.First(client => client.Id == idClient);
-    public IEnumerable<DbClient> GetClients()
-        => _entityList;
+    public async IAsyncEnumerable<DbClient> GetByAddressAsync(string address)
+    {
+        foreach(var item in _entityList.Where(client => client.Address == address))
+            yield return item;
+    }
+    public async IAsyncEnumerable<DbClient> GetByFirstNameAsync(string firstName)
+    {
+        foreach(var item in _entityList.Where(client => client.FirstName == firstName))
+            yield return item;
+    }
+    public async IAsyncEnumerable<DbClient> GetByLastNameAsync(string lastName)
+    {
+        foreach(var item in _entityList.Where(client => client.LastName == lastName))
+            yield return item;
+    }
+    public async IAsyncEnumerable<DbClient> GetByPhoneNumberAsync(string phoneNumber)
+    {
+        foreach(var item in _entityList.Where(client => client.PhoneNumber == phoneNumber))
+            yield return item;
+    }
+    public Task<DbClient> GetClientAsync(string phoneNumberClient) => 
+        Task.Run(() =>_entityList.First(client => client.PhoneNumber == phoneNumberClient));
+    public Task<DbClient> GetClientAsync(Guid idClient) =>
+        Task.Run(() => _entityList.First(client => client.Id == idClient));
+    public async IAsyncEnumerable<DbClient> GetClientsAsync()
+    {
+        foreach(var item in _entityList)
+            yield return item;
+    }
 }

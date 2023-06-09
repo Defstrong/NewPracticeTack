@@ -11,11 +11,11 @@ public interface IClientRepository : IBaseRepository<DbClient>
     /// </summary>
     /// <param name"description"> Order description</param>
     /// <returns>List of DbOrder</returs>
-    DbClient GetClient(Guid idClient);
-    IEnumerable<DbClient> GetByFirstName(string firstName);
-    IEnumerable<DbClient> GetByLastName(string lastName);
-    IEnumerable<DbClient> GetByAddress(string address);
-    IEnumerable<DbClient> GetByPhoneNumber(string phoneNumber);
-    IEnumerable<DbClient> GetClients();
+    Task<DbClient> GetClientAsync(Guid idClient);
+    IAsyncEnumerable<DbClient> GetByFirstNameAsync(string firstName);
+    IAsyncEnumerable<DbClient> GetByLastNameAsync(string lastName);
+    IAsyncEnumerable<DbClient> GetByAddressAsync(string address);
+    IAsyncEnumerable<DbClient> GetByPhoneNumberAsync(string phoneNumber);
+    IAsyncEnumerable<DbClient> GetClientsAsync();
 
 }

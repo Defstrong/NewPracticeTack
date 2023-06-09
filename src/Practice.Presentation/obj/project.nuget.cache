@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "CUJwYKf5EJSj9r3PFNMuKppOMaFsqxmSWcSns4agVQoyaCqq8reRtl/vJKYmwEUhQao384BF+2dzWQ46bwW3mg==",
+  "dgSpecHash": "QF6jN7Fz6akES/9rRm4lMdtX+jLG55raQ1Bk7tCxDPzaPBRJ1Ny5vntfk7Q0e0P6+J14diNRgeylh3W2h0R2TA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Asus\\Documents\\NewPracticeTack\\src\\Practice.Presentation\\Practice.Presentation.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Asus\\.nuget\\packages\\csvhelper\\30.0.1\\csvhelper.30.0.1.nupkg.sha512"
+    "C:\\Users\\Asus\\.nuget\\packages\\csvhelper\\30.0.1\\csvhelper.30.0.1.nupkg.sha512",
+    "C:\\Users\\Asus\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",
+    "C:\\Users\\Asus\\.nuget\\packages\\system.linq.async\\6.0.1\\system.linq.async.6.0.1.nupkg.sha512"
   ],
   "logs": []
 }

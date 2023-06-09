@@ -22,8 +22,8 @@ public sealed class OperatorLogic
     /// <param name="order">
     ///    Instance order for clreate order
     /// </param> 
-    public void CreateOrder(string phoneNumberClinet, Order order)
-        => _orderServices.CreateOrder(phoneNumberClinet, order);
+    public async Task CreateOrderAsync(string phoneNumberClinet, Order order)
+        => await _orderServices.CreateOrderAsync(phoneNumberClinet, order);
     /// <summary>
     ///     Represent method for update order
     /// </summary>
@@ -36,13 +36,13 @@ public sealed class OperatorLogic
     /// <param name="phoneNumberClient">
     ///     Phone number client for order
     /// </param>
-    public void UpdateOrder(Order order, Guid orderId)
-        => _orderServices.UpdateOrder(order, orderId);
+    public async Task UpdateOrderAsync(Order order, Guid orderId)
+        => await _orderServices.UpdateOrderAsync(order, orderId);
     /// <summary>
     ///     Represent method for get all orders
     /// </summary>
-    public IEnumerable<Order> GetOrders()
-        => _orderServices.GetOrders();
+    public IAsyncEnumerable<Order> GetOrders()
+        =>  _orderServices.GetOrdersAsync();
     /// <summary>
     ///     Represent method for get orders with date
     /// </summary>
@@ -52,11 +52,11 @@ public sealed class OperatorLogic
     /// <param name="toDate">
     ///     To date search
     /// </param>
-    public IEnumerable<Order> GetOrders(DateTime fromDate, DateTime toDate)
-        => _orderServices.GetOrders(fromDate, toDate);
+    public IAsyncEnumerable<Order> GetOrdersAsync(DateTime fromDate, DateTime toDate)
+        => _orderServices.GetOrdersAsync(fromDate, toDate);
     /// <summary>
     ///     Represent method for get orders
     /// </summary>
-    public IEnumerable<Order> GetOrders(int skip, int take, Guid idClient)
-        => _orderServices.GetOrders(skip, take, idClient);
+    public IAsyncEnumerable<Order> GetOrdersAsync(int skip, int take, Guid idClient)
+        => _orderServices.GetOrdersAsync(skip, take, idClient);
 }

@@ -19,3 +19,5 @@ C:\Users\Asus\Documents\NewPracticeTack\src\Practice.Presentation\obj\Debug\net6
 C:\Users\Asus\Documents\NewPracticeTack\src\Practice.Presentation\obj\Debug\net6.0\Practice.Presentation.pdb
 C:\Users\Asus\Documents\NewPracticeTack\src\Practice.Presentation\obj\Debug\net6.0\Practice.Presentation.genruntimeconfig.cache
 C:\Users\Asus\Documents\NewPracticeTack\src\Practice.Presentation\obj\Debug\net6.0\ref\Practice.Presentation.dll
+C:\Users\Asus\Documents\NewPracticeTack\src\Practice.Presentation\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\Asus\Documents\NewPracticeTack\src\Practice.Presentation\bin\Debug\net6.0\System.Linq.Async.dll

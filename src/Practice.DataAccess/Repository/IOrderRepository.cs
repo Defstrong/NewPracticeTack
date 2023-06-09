@@ -11,10 +11,10 @@ public interface IOrderRepository : IBaseRepository<DbOrder>
     /// </summary>
     /// <param name"description"> Order description</param>
     /// <returns>List of DbOrder</returs>
-    public DbOrder GetOrder(string description);
-    public DbOrder GetOrder( Guid orderId);
-    public IEnumerable<DbOrder> GetOrders();
-    public IEnumerable<DbOrder> GetOrder(DateTime fromDate, DateTime toDate);
-    public IEnumerable<DbOrder> GetOrders(int take, int skip);
-    public IEnumerable<DbOrder> GetOrders(string phoneNumberClient, Guid orderId);
+    public Task<DbOrder> GetOrderAsync(string description);
+    public Task<DbOrder> GetOrderAsync(Guid orderId);
+    public IAsyncEnumerable<DbOrder> GetOrdersAsync();
+    public IAsyncEnumerable<DbOrder> GetOrderAsync(DateTime fromDate, DateTime toDate);
+    public IAsyncEnumerable<DbOrder> GetOrdersAsync(int take, int skip);
+    public IAsyncEnumerable<DbOrder> GetOrdersAsync(string phoneNumberClient, Guid orderId);
 }

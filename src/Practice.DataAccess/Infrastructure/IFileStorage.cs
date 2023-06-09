@@ -5,7 +5,7 @@ namespace Practice.DataAccess;
 public interface IFileStorage<T>
     where T : DbEntity 
 {
-    public void Save(T entities);
-    public void Save(IEnumerable<T> entities);
-    public IEnumerable<T> Read();
+    public Task SaveAsync(T entities);
+    public Task SaveAsync(IEnumerable<T> entities);
+    public IAsyncEnumerable<T> ReadAsync();
 }

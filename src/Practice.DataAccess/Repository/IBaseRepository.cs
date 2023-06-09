@@ -11,9 +11,9 @@ namespace Practice.DataAccess;
 public interface IBaseRepository<T>
     where T : DbEntity
 {
-    public Guid Create(T entity);
-    public T Get(Guid id);
-    public IEnumerable<T> GetAll();
-    public void Update(T entity, Guid id);
-    public void Delete(Guid id);
+    public Task<Guid> CreateAsync(T entity);
+    public Task<T> GetAsync(Guid id);
+    public IAsyncEnumerable<T> GetAllAsync();
+    public Task UpdateAsync(T entity, Guid id);
+    public Task DeleteAsync(Guid id);
 }

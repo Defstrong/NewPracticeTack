@@ -23,8 +23,8 @@ public sealed class ClientLogic
     /// <param name="orderId">
     ///     Order identificer for get order
     /// </param>
-    public Order GetOrder(Guid orderId)
-        => _orderServices.GetOrder(orderId);
+    public Task<Order> GetOrderAsync(Guid orderId)
+        => _orderServices.GetOrderAsync(orderId);
 
     /// <summary>
     ///     Represent method for get orders in a certain depozone 
@@ -35,8 +35,8 @@ public sealed class ClientLogic
     /// <param name="skip">
     ///     Skip N element at list order
     /// </param>
-    public IEnumerable<Order> GetOrders(int take, int skip, Guid idClient)
-        => _orderServices.GetOrders(take, skip,idClient);
+    public IAsyncEnumerable<Order> GetOrdersAsync(int take, int skip, Guid idClient)
+        => _orderServices.GetOrdersAsync(take, skip,idClient);
     
     /// <summary>
     ///     Represent method for delete order with order identificer
@@ -44,8 +44,8 @@ public sealed class ClientLogic
     /// <param name="orderId">
     ///     Order identificer for delete order
     /// </param>
-    public bool DeleteOrder(Guid orderId)
-        => _orderServices.DeleteOrder(orderId);
+    public Task<bool> DeleteOrderAsync(Guid orderId)
+        => _orderServices.DeleteOrderAsync(orderId);
     
     /// <summary>
     ///     Represent method for update order with order identificer
@@ -59,6 +59,6 @@ public sealed class ClientLogic
     /// <param name="phoneNumberClient">
     ///     Phone number client for call
     /// </param>
-    public void UpdateOrder(Order order, Guid orderId)
-        => _orderServices.UpdateOrder(order, orderId);
+    public Task UpdateOrderAsync(Order order, Guid orderId)
+        => _orderServices.UpdateOrderAsync(order, orderId);
 }

@@ -3,10 +3,10 @@ namespace Practice.BusinessLogic;
 
 public interface IClientServices
 {
-     Guid CreateClient(Client client);
-     bool DeleteClient(Guid id);
-     Client GetClient(Guid orderId);
-     IEnumerable<Client> GetClients();
-     IEnumerable<Client> GetClients(int take, int skip);
-     void UpdateClient(Client client, Guid clientId);
+     Task<Guid> CreateClientAsync(Client client);
+     Task<bool> DeleteClientAsync(Guid id);
+     Task<Client> GetClientAsync(Guid orderId);
+     IAsyncEnumerable<Client> GetClientsAsync();
+     IAsyncEnumerable<Client> GetClientsAsync(int take, int skip);
+     Task UpdateClientAsync(Client client, Guid clientId);
 }

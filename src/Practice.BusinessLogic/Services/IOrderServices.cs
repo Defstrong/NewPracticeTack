@@ -5,14 +5,14 @@ namespace Practice.BusinessLogic;
 /// </summary>
 public interface IOrderServices
 {
-    Guid CreateOrder(string phoneNumberClient, Order order);
-    bool DeleteOrder(Guid orderId);
-    Order GetOrder(string description);
-    Order GetOrder(Guid orderId);
-    IEnumerable<Order> GetOrders();
-    IEnumerable<Order> GetOrders(Guid idClient);
-    IEnumerable<Order> GetOrders(int take, int skip, Guid idClient);
-    IEnumerable<Order> GetOrders(DateTime fromDate, DateTime toDate);
-    int GetCountOrder(Guid idClient);
-    void UpdateOrder(Order order, Guid orderId);
+    Task<Guid> CreateOrderAsync(string phoneNumberClient, Order order);
+    Task<bool> DeleteOrderAsync(Guid orderId);
+    Task<Order> GetOrderAsync(string description);
+    Task<Order> GetOrderAsync(Guid orderId);
+    IAsyncEnumerable<Order> GetOrdersAsync();
+    IAsyncEnumerable<Order> GetOrdersAsync(Guid idClient);
+    IAsyncEnumerable<Order> GetOrdersAsync(int take, int skip, Guid idClient);
+    IAsyncEnumerable<Order> GetOrdersAsync(DateTime fromDate, DateTime toDate);
+    Task<int> GetCountOrderAsync(Guid idClient);
+    Task UpdateOrderAsync(Order order, Guid orderId);
 }

@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "FZvB/G1FEVV+XJ+NaLiSVezkjNU4VuUrOZCtLbkUrB0Z8y5ID5PD0Y5Fywtjr1ao5LGv7UeE5CidR8rtHfzv+w==",
+  "dgSpecHash": "G2JsTHq+TlLAYQ7hIZu6ZoQjFTKlOsxIpf9MrMtyI1t1yn6aDGmJvyTk6GxP0LEuYroYZrXGHI0bQWyMKRIcnQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Asus\\Documents\\NewPracticeTack\\src\\Practice.BusinessLogic\\Practice.BusinessLogic.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Asus\\.nuget\\packages\\csvhelper\\30.0.1\\csvhelper.30.0.1.nupkg.sha512"
+    "C:\\Users\\Asus\\.nuget\\packages\\csvhelper\\30.0.1\\csvhelper.30.0.1.nupkg.sha512",
+    "C:\\Users\\Asus\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",
+    "C:\\Users\\Asus\\.nuget\\packages\\system.linq.async\\6.0.1\\system.linq.async.6.0.1.nupkg.sha512"
   ],
   "logs": []
 }

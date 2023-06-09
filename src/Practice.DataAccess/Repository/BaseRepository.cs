@@ -12,13 +12,17 @@ public class BaseRepository<T> : IBaseRepository<T>
     private IFileStorage<T> _fileStorage;
     public BaseRepository(IFileStorage<T> fileStorage)
     {
+        var taskFileStorage = Task.Run(async () =>
+        {
+            await foreach(var item in fileStorage.ReadAsync())
+                _entityList.Add(item);
+        });
         _fileStorage = fileStorage;
-        _entityList = _fileStorage.Read().ToList<T>();
     }
     /// <summary>
     ///     Represent method for commit all data
     /// </summary>
-    private void Commit() => _fileStorage.Save(_entityList);
+    private Task CommitAsync() => _fileStorage.SaveAsync(_entityList);
     /// <summary>
     ///     Represent method for create data for save
     /// </summary>
@@ -32,13 +36,16 @@ public class BaseRepository<T> : IBaseRepository<T>
     /// <returned>
     ///     Return Id
     /// </returned>
-    public Guid Create(T entity)
+    public Task<Guid> CreateAsync(T entity)
     {
-        ArgumentNullException.ThrowIfNull(nameof(entity));
-        entity.Id = Guid.NewGuid();
-        _entityList.Add(entity);
-        Commit();
-        return entity.Id;
+        return Task.Run(() =>
+        {
+            ArgumentNullException.ThrowIfNull(nameof(entity));
+            entity.Id = Guid.NewGuid();
+            _entityList.Add(entity);
+            CommitAsync();
+            return entity.Id;
+        });
     }
     /// <summary>
     ///     Represent method for delete data 
@@ -50,11 +57,14 @@ public class BaseRepository<T> : IBaseRepository<T>
     ///     The exception that is thrown when a method call is invalid for the object's current
     ///     state.
     /// </exception>
-    public void Delete(Guid id)
+    public Task DeleteAsync(Guid id)
     {
-        var entityForDelete = _entityList.Single(x => x.Id == id);
-        _entityList.Remove(entityForDelete);
-        Commit();
+        return Task.Run(() =>
+        {
+            var entityForDelete = _entityList.Single(x => x.Id == id);
+            _entityList.Remove(entityForDelete);
+            CommitAsync();
+        });
     }
     /// <summary>
     ///     Represent method for get data
@@ -66,15 +76,16 @@ public class BaseRepository<T> : IBaseRepository<T>
     ///     The exception that is thrown when a method call is invalid for the object's current
     ///     state.
     /// </exception>
-    public T Get(Guid id)
-    {
-        var entityForGet = _entityList.Single(x => x.Id == id);
-        return entityForGet;
-    }
+    public Task<T> GetAsync(Guid id) =>
+        Task.Run(() => _entityList.Single(x => x.Id == id));
     /// <summary>
     ///     Represent method for get all data
     /// </summary>
-    public IEnumerable<T> GetAll() => _entityList;
+    public async IAsyncEnumerable<T> GetAllAsync() 
+    {
+        foreach (var item in _entityList)
+            yield return item;
+    }
     /// <summary>
     ///     Represent method for updata data
     /// </summary>
@@ -88,12 +99,15 @@ public class BaseRepository<T> : IBaseRepository<T>
     ///     The exception that is thrown when a method call is invalid for the object's current
     ///     state.
     /// </exception>
-    public void Update(T entity, Guid id)
+    public Task UpdateAsync(T entity, Guid id)
     {
-        var oldData = _entityList.Single(x => x.Id == id);
-        entity.Id = oldData.Id;
-        _entityList.Remove(oldData);
-        _entityList.Add(entity);
-        Commit();
+        return Task.Run(() =>
+        {
+            var oldData = _entityList.Single(x => x.Id == id);
+            entity.Id = oldData.Id;
+            _entityList.Remove(oldData);
+            _entityList.Add(entity);
+            CommitAsync();
+        });
     }
 }

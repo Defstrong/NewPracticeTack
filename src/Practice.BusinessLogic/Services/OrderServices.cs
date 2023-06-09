@@ -23,21 +23,24 @@ public sealed class OrderServices : IOrderServices
     /// <param name="description">
     ///     Description order
     /// </param>
-    public Guid CreateOrder(string phoneNumberClient, Order order)
+    public async Task<Guid> CreateOrderAsync(string phoneNumberClient, Order order)
     {
-        var client = _clientRepository.GetClient(phoneNumberClient);
+        var client = await _clientRepository.GetClientAsync(phoneNumberClient);
         if(client is not null)
         {
-            var dbOrder = order.OrderToDbOrder();
-            dbOrder.IdClient = client.Id;
-            return _orderRepository.Create(dbOrder);
+            await Task.Run(async () =>
+            {
+                var dbOrder = order.OrderToDbOrder();
+                dbOrder.IdClient = client.Id;
+                return await _orderRepository.CreateAsync(dbOrder);
+            });
         }
         throw new Exception();
     }
-    public bool DeleteOrder(Guid orderId)
+    public async Task<bool> DeleteOrderAsync(Guid orderId)
     {
-        var order = _orderRepository.GetOrder(orderId);
-        _orderRepository.Delete(order.Id);
+        var order = await _orderRepository.GetOrderAsync(orderId);
+        await _orderRepository.DeleteAsync(order.Id);
         return true;
     }
     /// <summary>
@@ -46,42 +49,47 @@ public sealed class OrderServices : IOrderServices
     /// <param name="description">
     ///     Description Order
     /// </param>
-    public Order GetOrder(string description)
+    public async Task<Order> GetOrderAsync(string description)
     {
-        var dbOrder = _orderRepository.GetOrder(description);
+        var dbOrder = await _orderRepository.GetOrderAsync(description);
         return dbOrder.DbOrderToOrder();
     }
-    public Order GetOrder(Guid orderId)
+    public async Task<Order> GetOrderAsync(Guid orderId)
     {
-        var order = _orderRepository.GetOrder(orderId);
+        var order = await _orderRepository.GetOrderAsync(orderId);
         return order.DbOrderToOrder();
     }
-    public IEnumerable<Order> GetOrders(Guid idClient) =>
-        _orderRepository.GetOrders().Where(x => x.IdClient == idClient).Select(x => x.DbOrderToOrder());
+    public IAsyncEnumerable<Order> GetOrdersAsync(Guid idClient) =>
+        _orderRepository.GetOrdersAsync()
+            .Where(x => x.IdClient == idClient)
+            .Select(x => x.DbOrderToOrder());
     
-    public IEnumerable<Order>GetOrders() =>
-        _orderRepository.GetOrders().Select(x => x.DbOrderToOrder());
+    public IAsyncEnumerable<Order>GetOrdersAsync() =>
+        _orderRepository.GetOrdersAsync()
+            .Select(x => x.DbOrderToOrder());
 
-    public IEnumerable<Order> GetOrders(DateTime fromDate, DateTime toDate) =>
-        _orderRepository.GetOrder(fromDate, toDate)
+    public IAsyncEnumerable<Order> GetOrdersAsync(DateTime fromDate, DateTime toDate) =>
+        _orderRepository.GetOrderAsync(fromDate, toDate)
             .Select(x => x.DbOrderToOrder());
  
-    public IEnumerable<Order> GetOrders(int take, int skip, Guid idClient)
+    public async IAsyncEnumerable<Order> GetOrdersAsync(int take, int skip, Guid idClient)
     {
-        Console.WriteLine(take + skip);
-        Console.WriteLine(_orderRepository.GetOrders().Count());
-        if(take + skip <= _orderRepository.GetOrders().Count())
-            return _orderRepository.GetOrders().Where(x => x.IdClient == idClient)
-                .Skip(skip).Take(take).Select(x => x.DbOrderToOrder());
+         if(take + skip <= await _orderRepository.GetOrdersAsync().CountAsync())
+         {
+            await foreach(var item in _orderRepository.GetOrdersAsync()
+                .Where(x => x.IdClient == idClient)
+                .Skip(skip).Take(take).Select(x => x.DbOrderToOrder()))
+                    yield return item;
+         }
         else
             throw new IndexOutOfRangeException();
     }
-    public int GetCountOrder(Guid idClient)
-        => _orderRepository.GetOrders().Count();
-    public void UpdateOrder(Order order, Guid orderId)
+    public async Task<int> GetCountOrderAsync(Guid idClient)
+        => await _orderRepository.GetOrdersAsync().CountAsync();
+    public async Task UpdateOrderAsync(Order order, Guid orderId)
     {
         var dbOrder = order.OrderToDbOrder();
         dbOrder.Id = orderId;
-        _orderRepository.Update(dbOrder,orderId);
+        await _orderRepository.UpdateAsync(dbOrder,orderId);
     }
 }

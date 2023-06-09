@@ -9,35 +9,39 @@ public sealed class ClientServices : IClientServices
     {
         _clientRepository = clientRepository;
     }
-    public Guid CreateClient(Client client)
+    public async Task<Guid> CreateClientAsync(Client client)
     {
         ArgumentNullException.ThrowIfNull(client);
-        return _clientRepository.Create(client.ClientToDbClient()); 
+        return await _clientRepository.CreateAsync(client.ClientToDbClient()); 
     }
-    public bool DeleteClient(Guid clientId)
+    public async Task<bool> DeleteClientAsync(Guid clientId)
     {
-        var client = _clientRepository.GetClient(clientId);
-        _clientRepository.Delete(client.Id);
+        var client = await _clientRepository.GetClientAsync(clientId);
+        await _clientRepository.DeleteAsync(client.Id);
         return true;
     }
-    public Client GetClient(Guid clientId)
+    public async Task<Client> GetClientAsync(Guid clientId)
     {
-        var client = _clientRepository.GetClient(clientId);
+        var client = await _clientRepository.GetClientAsync(clientId);
         return client.DbClientToClient();
     }
-    public IEnumerable<Client> GetClients() =>
-        _clientRepository.GetClients().Select(x => x.DbClientToClient());
-    public IEnumerable<Client> GetClients(int take, int skip)
+    public async IAsyncEnumerable<Client> GetClientsAsync() 
     {
-        if(take + skip >= _clientRepository.GetClients().Count())
-            return _clientRepository.GetClients().Skip(skip).Take(take).Select(x => x.DbClientToClient());
+        await foreach (var item in _clientRepository.GetClientsAsync().Select(x => x.DbClientToClient()))
+            yield return item;
+    }
+    public async IAsyncEnumerable<Client> GetClientsAsync(int take, int skip)
+    {
+        if(take + skip >= await _clientRepository.GetClientsAsync().CountAsync())
+            await foreach(var item in _clientRepository.GetClientsAsync().Skip(skip).Take(take).Select(x => x.DbClientToClient()))
+                yield return item;
         else
             throw new IndexOutOfRangeException();
     }
-    public void UpdateClient(Client client, Guid clientId)
+    public async Task UpdateClientAsync(Client client, Guid clientId)
     {
         var dbClient = client.ClientToDbClient();
         dbClient.Id = clientId;
-        _clientRepository.Update(dbClient, dbClient.Id);        
+        await _clientRepository.UpdateAsync(dbClient, dbClient.Id);        
     }
 }

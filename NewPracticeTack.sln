@@ -11,7 +11,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Practice.Presentation", "sr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Practice.DataAccess", "src\Practice.DataAccess\Practice.DataAccess.csproj", "{BCFF097A-31F5-491A-B8F1-BD59CE1766BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tests", "tests\tests.csproj", "{AB01FC05-B0B1-4C9A-B58C-C667C17D815E}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{EA5D407B-F012-4D72-8A65-D9E21592FCFE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Practice.DataAccess.Tests", "tests\Practice.DataAccess.Tests\Practice.DataAccess.Tests.csproj", "{B620AB95-BEB1-40E1-9F10-635543DB4FBB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,10 +40,15 @@ Global
 		{AB01FC05-B0B1-4C9A-B58C-C667C17D815E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AB01FC05-B0B1-4C9A-B58C-C667C17D815E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AB01FC05-B0B1-4C9A-B58C-C667C17D815E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B620AB95-BEB1-40E1-9F10-635543DB4FBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B620AB95-BEB1-40E1-9F10-635543DB4FBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B620AB95-BEB1-40E1-9F10-635543DB4FBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B620AB95-BEB1-40E1-9F10-635543DB4FBB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{7B42CB33-7CBB-4BAF-B9E5-87C7CC96CCD6} = {2263453F-9319-41B1-9016-C6D8ACDFCC62}
 		{C7A8CB15-773F-42D5-908A-40F42075D0E8} = {2263453F-9319-41B1-9016-C6D8ACDFCC62}
 		{BCFF097A-31F5-491A-B8F1-BD59CE1766BF} = {2263453F-9319-41B1-9016-C6D8ACDFCC62}
+		{B620AB95-BEB1-40E1-9F10-635543DB4FBB} = {EA5D407B-F012-4D72-8A65-D9E21592FCFE}
 	EndGlobalSection
 EndGlobal

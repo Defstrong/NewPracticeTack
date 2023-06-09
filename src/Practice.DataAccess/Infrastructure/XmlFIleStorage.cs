@@ -18,8 +18,12 @@ public sealed class XmlFileStorage<T> : IFileStorage<T>
     public XmlFileStorage(string filePath)
     {
         _filePath = filePath;
-        if(!File.Exists(_filePath))
-            Save(new List<T>()); 
+        var taskRun = Task.Run(async () =>
+        {
+            if(!File.Exists(_filePath))
+                await SaveAsync(new List<T>()); 
+        });
+        taskRun.Wait();
     }
     /// <summary>
     ///     Represent method for read xml file
@@ -40,12 +44,13 @@ public sealed class XmlFileStorage<T> : IFileStorage<T>
     /// <exception cref="ArgumentNullException">
     ///     path is null.
     /// </exception>
-   public IEnumerable<T> Read()
+   public async IAsyncEnumerable<T> ReadAsync()
     {
         XmlSerializer serializer = new XmlSerializer(typeof(T[]));
         using StreamReader fileStream = new StreamReader(_filePath);
         T[]? data = serializer.Deserialize(fileStream) as T[];
-        return data ?? Array.Empty<T>();
+        foreach(var item in data)
+            yield return item;
     }
     /// <summary>
     ///     Represent method for save element xml file
@@ -76,10 +81,10 @@ public sealed class XmlFileStorage<T> : IFileStorage<T>
     /// <param name="entity">
     ///     Entity for save in file
     /// </param>
-    public void Save(T entity)
+    public async Task SaveAsync(T entity)
     {
         XmlSerializer serializer = new XmlSerializer(typeof(T));
-        using StreamWriter fileStream = new StreamWriter(_filePath);
+        await using StreamWriter fileStream = new StreamWriter(_filePath);
         serializer.Serialize(fileStream, entity);
         fileStream.Close();
     }
@@ -113,10 +118,10 @@ public sealed class XmlFileStorage<T> : IFileStorage<T>
     /// <exception cref="SecurityException">
     ///     The caller does not have the required permission.
     /// </exception>
-    public void Save(IEnumerable<T> entities)
+    public async Task SaveAsync(IEnumerable<T> entities)
     {
         XmlSerializer serializer = new XmlSerializer(typeof(List<T>));
-        using StreamWriter fileStream = new StreamWriter(_filePath);
+        await using StreamWriter fileStream = new StreamWriter(_filePath);
         serializer.Serialize(fileStream, entities);
         fileStream.Close();
     }
