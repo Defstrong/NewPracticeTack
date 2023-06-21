@@ -28,12 +28,9 @@ public sealed class OrderServices : IOrderServices
         var client = await _clientRepository.GetClientAsync(phoneNumberClient);
         if(client is not null)
         {
-            return await Task.Run(async () =>
-            {
-                var dbOrder = order.OrderToDbOrder();
-                dbOrder.IdClient = client.Id;
-                return await _orderRepository.CreateAsync(dbOrder);
-            });
+            var dbOrder = order.OrderToDbOrder();
+            dbOrder.IdClient = client.Id;
+            return await _orderRepository.CreateAsync(dbOrder);
         }
         else
             throw new Exception();

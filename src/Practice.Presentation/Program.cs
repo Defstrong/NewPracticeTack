@@ -2,8 +2,8 @@ using Practice.DataAccess;
 using Practice.BusinessLogic;
 string _filePathOrder = "./xmlOrder.csv";
 string _filePathClient = "./xmlClient.csv";
-var fileStorageOrder = await FileStorageFactory<DbOrder>.GetCsvFileStorageAsync(_filePathOrder);
-var fileStorageClient = await FileStorageFactory<DbClient>.GetCsvFileStorageAsync(_filePathClient);
+var fileStorageOrder = FileStorageFactory<DbOrder>.GetCsvFileStorage(_filePathOrder);
+var fileStorageClient = FileStorageFactory<DbClient>.GetCsvFileStorage(_filePathClient);
 var orderRepository = new OrderRepository(fileStorageOrder);
 var clientRepository = new ClientRepository(fileStorageClient);
 var clientServices = new ClientServices(clientRepository);
@@ -48,9 +48,9 @@ async Task<string> ClientActionAsync(Guid idClient)
     else if(commandClient == "Update order")
         return await ClientUpdateOrderAsync(idClient);
     else
-        return await Task.Run(() => "Error");
+        return "Error";
 }
-async Task<string> OperatorAction(Guid idClient)
+async Task<string> OperatorActionAsync(Guid idClient)
 {
     Console.WriteLine("Create order\tUpdate order\tGet order");
     var command = Console.ReadLine();

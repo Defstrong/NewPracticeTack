@@ -51,7 +51,7 @@ public sealed class OrderRepository : BaseRepository<DbOrder>, IOrderRepository
                 yield return item;
         } 
         else
-            throw new ArgumentOutOfRangeException();
+            throw new ArgumentOutOfRangeException(nameof(take));
     }
     public async IAsyncEnumerable<DbOrder> GetOrdersAsync(string phoneNumberClient, Guid orderId)
     {
