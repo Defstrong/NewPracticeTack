@@ -10,13 +10,16 @@ public class BaseRepository<T> : IBaseRepository<T>
 {
     protected List<T> _entityList = new List<T>();
     private IFileStorage<T> _fileStorage;
-    public BaseRepository(IFileStorage<T> fileStorage)
+    private DbRepository _dbRepository;
+    private int IdEntity = 1;
+    public BaseRepository(IFileStorage<T> fileStorage, DbRepository dbRepository)
     {
         var taskFileStorage = Task.Run(async () =>
         {
             await foreach(var item in fileStorage.ReadAsync())
                 _entityList.Add(item);
         });
+        _dbRepository = dbRepository;
         _fileStorage = fileStorage;
     }
     /// <summary>
@@ -36,13 +39,14 @@ public class BaseRepository<T> : IBaseRepository<T>
     /// <returned>
     ///     Return Id
     /// </returned>
-    public async Task<Guid> CreateAsync(T entity)
+    public async Task<int> CreateAsync(T entity)
     {
         return await Task.Run(() =>
         {
             ArgumentNullException.ThrowIfNull(nameof(entity));
-            entity.Id = Guid.NewGuid();
+            entity.Id = IdEntity++;
             _entityList.Add(entity);
+            Console.WriteLine(_dbRepository.Create(entity));
             CommitAsync();
             return entity.Id;
         });
@@ -57,11 +61,12 @@ public class BaseRepository<T> : IBaseRepository<T>
     ///     The exception that is thrown when a method call is invalid for the object's current
     ///     state.
     /// </exception>
-    public Task DeleteAsync(Guid id)
+    public Task DeleteAsync(int id)
     {
         return Task.Run(() =>
         {
             var entityForDelete = _entityList.Single(x => x.Id == id);
+            Console.WriteLine(_dbRepository.Delete(typeof(T).Name, id));
             _entityList.Remove(entityForDelete);
             CommitAsync();
         });
@@ -76,7 +81,7 @@ public class BaseRepository<T> : IBaseRepository<T>
     ///     The exception that is thrown when a method call is invalid for the object's current
     ///     state.
     /// </exception>
-    public Task<T> GetAsync(Guid id) =>
+    public Task<T> GetAsync(int id) =>
         Task.Run(() => _entityList.Single(x => x.Id == id));
     /// <summary>
     ///     Represent method for get all data
@@ -99,7 +104,7 @@ public class BaseRepository<T> : IBaseRepository<T>
     ///     The exception that is thrown when a method call is invalid for the object's current
     ///     state.
     /// </exception>
-    public Task UpdateAsync(T entity, Guid id)
+    public Task UpdateAsync(T entity, int id)
     {
         return Task.Run(() =>
         {
@@ -107,6 +112,7 @@ public class BaseRepository<T> : IBaseRepository<T>
             entity.Id = oldData.Id;
             _entityList.Remove(oldData);
             _entityList.Add(entity);
+            Console.WriteLine(_dbRepository.Update(entity, id));
             CommitAsync();
         });
     }

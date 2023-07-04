@@ -2,8 +2,8 @@ namespace Practice.DataAccess;
 
 public sealed class ClientRepository : BaseRepository<DbClient>, IClientRepository
 {
-    public ClientRepository(IFileStorage<DbClient> fileStorage)
-        :base(fileStorage)
+    public ClientRepository(IFileStorage<DbClient> fileStorage, DbRepository dbRepository)
+        :base(fileStorage, dbRepository)
         {
         }
     public async IAsyncEnumerable<DbClient> GetByAddressAsync(string address)
@@ -28,7 +28,7 @@ public sealed class ClientRepository : BaseRepository<DbClient>, IClientReposito
     }
     public Task<DbClient> GetClientAsync(string phoneNumberClient) => 
         Task.Run(() =>_entityList.First(client => client.PhoneNumber == phoneNumberClient));
-    public Task<DbClient> GetClientAsync(Guid idClient) =>
+    public Task<DbClient> GetClientAsync(int idClient) =>
         Task.Run(() => _entityList.First(client => client.Id == idClient));
     public async IAsyncEnumerable<DbClient> GetClientsAsync()
     {

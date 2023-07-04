@@ -36,7 +36,7 @@ public sealed class OperatorLogic
     /// <param name="phoneNumberClient">
     ///     Phone number client for order
     /// </param>
-    public async Task UpdateOrderAsync(Order order, Guid orderId)
+    public async Task UpdateOrderAsync(Order order, int orderId)
         => await _orderServices.UpdateOrderAsync(order, orderId);
     /// <summary>
     ///     Represent method for get all orders
@@ -57,6 +57,6 @@ public sealed class OperatorLogic
     /// <summary>
     ///     Represent method for get orders
     /// </summary>
-    public IAsyncEnumerable<Order> GetOrdersAsync(int skip, int take, Guid idClient)
+    public IAsyncEnumerable<Order> GetOrdersAsync(int skip, int take, int idClient)
         => _orderServices.GetOrdersAsync(skip, take, idClient);
 }

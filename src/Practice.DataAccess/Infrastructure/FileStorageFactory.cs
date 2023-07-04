@@ -25,12 +25,9 @@ public static class FileStorageFactory<T>
     ///<returns>
     ///     XmlFileStorage implementation
     ///</returns>
-    public static Task<IFileStorage<T>> GetXmlFileStorageAsync(string filePath)
+    public static IFileStorage<T> GetXmlFileStorageAsync(string filePath)
     {
-        return Task.Run(() => 
-        {
-            IFileStorage<T> fileStorage = new XmlFileStorage<T>(filePath);
-            return fileStorage;
-        });
+        IFileStorage<T> fileStorage = new XmlFileStorage<T>(filePath);
+        return fileStorage;
     }
 }

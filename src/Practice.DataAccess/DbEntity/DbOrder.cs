@@ -16,8 +16,8 @@ public record DbOrder : DbEntity
     private readonly DateTime? _dateOrder;
     private readonly string? _descritption;
     private readonly decimal? _price;
-    private readonly Guid? id;
-    public Guid IdClient {get; set;}
+    private readonly int? id;
+    public int IdClient {get; set;}
     private readonly string? _phoneNumberClient;
 
     /// <summary>

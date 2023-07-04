@@ -2,8 +2,8 @@ namespace Practice.DataAccess;
 
 public sealed class OrderRepository : BaseRepository<DbOrder>, IOrderRepository
 {
-    public OrderRepository(IFileStorage<DbOrder> fileStorage)
-        :base(fileStorage)
+    public OrderRepository(IFileStorage<DbOrder> fileStorage, DbRepository dbRepository)
+        :base(fileStorage, dbRepository)
         {
 
         }
@@ -21,7 +21,7 @@ public sealed class OrderRepository : BaseRepository<DbOrder>, IOrderRepository
             return dbOrder;
         });
     }
-    public Task<DbOrder> GetOrderAsync(Guid orderId)
+    public Task<DbOrder> GetOrderAsync(int orderId)
     {
         return Task.Run(() =>
         {
@@ -53,7 +53,7 @@ public sealed class OrderRepository : BaseRepository<DbOrder>, IOrderRepository
         else
             throw new ArgumentOutOfRangeException(nameof(take));
     }
-    public async IAsyncEnumerable<DbOrder> GetOrdersAsync(string phoneNumberClient, Guid orderId)
+    public async IAsyncEnumerable<DbOrder> GetOrdersAsync(string phoneNumberClient, int orderId)
     {
         foreach(var item in _entityList
             .Where(x => x.PhoneNumberClient == phoneNumberClient && x.Id == orderId))

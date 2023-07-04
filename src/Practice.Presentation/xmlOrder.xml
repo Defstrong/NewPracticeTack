@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfDbOrder xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DbOrder>
+    <Id>2</Id>
+    <IdClient>0</IdClient>
+    <DateOrder>2023-07-04T17:12:51.0950015+05:00</DateOrder>
+    <Description>iaojdff;alskdjf;salsdlkj</Description>
+    <Price>123</Price>
+    <PhoneNumberClient />
+  </DbOrder>
+</ArrayOfDbOrder>

@@ -1,12 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "G2JsTHq+TlLAYQ7hIZu6ZoQjFTKlOsxIpf9MrMtyI1t1yn6aDGmJvyTk6GxP0LEuYroYZrXGHI0bQWyMKRIcnQ==",
+  "dgSpecHash": "Rot61iQdf6NmPK9lLOoCcrojug1OsQ91Eh1U+yE29e4F1qFHsvBwf0hP90hYV6pCjXjZo9Zh5EF/AclVpvuXFg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Asus\\Documents\\NewPracticeTack\\src\\Practice.BusinessLogic\\Practice.BusinessLogic.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Asus\\.nuget\\packages\\csvhelper\\30.0.1\\csvhelper.30.0.1.nupkg.sha512",
     "C:\\Users\\Asus\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",
-    "C:\\Users\\Asus\\.nuget\\packages\\system.linq.async\\6.0.1\\system.linq.async.6.0.1.nupkg.sha512"
+    "C:\\Users\\Asus\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\6.0.0\\microsoft.extensions.logging.abstractions.6.0.0.nupkg.sha512",
+    "C:\\Users\\Asus\\.nuget\\packages\\npgsql\\7.0.4\\npgsql.7.0.4.nupkg.sha512",
+    "C:\\Users\\Asus\\.nuget\\packages\\system.linq.async\\6.0.1\\system.linq.async.6.0.1.nupkg.sha512",
+    "C:\\Users\\Asus\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
   ],
   "logs": []
 }

@@ -9,7 +9,7 @@ public sealed class ClientServices : IClientServices
     {
         _clientRepository = clientRepository;
     }
-    public async Task<Guid> CreateClientAsync(Client client)
+    public async Task<int> CreateClientAsync(Client client)
     {
         if(client is not null)
         {
@@ -29,13 +29,13 @@ public sealed class ClientServices : IClientServices
         // });
         // return await _clientRepository.CreateAsync(client.ClientToDbClient()); 
     }
-    public async Task<bool> DeleteClientAsync(Guid clientId)
+    public async Task<bool> DeleteClientAsync(int clientId)
     {
         var client = await _clientRepository.GetClientAsync(clientId);
         await _clientRepository.DeleteAsync(client.Id);
         return true;
     }
-    public async Task<Client> GetClientAsync(Guid clientId)
+    public async Task<Client> GetClientAsync(int clientId)
     {
         var client = await _clientRepository.GetClientAsync(clientId);
         return client.DbClientToClient();
@@ -53,7 +53,7 @@ public sealed class ClientServices : IClientServices
         else
             throw new IndexOutOfRangeException();
     }
-    public async Task UpdateClientAsync(Client client, Guid clientId)
+    public async Task UpdateClientAsync(Client client, int clientId)
     {
         var dbClient = client.ClientToDbClient();
         dbClient.Id = clientId;

@@ -1,11 +1,12 @@
 using Practice.DataAccess;
 using Practice.BusinessLogic;
-string _filePathOrder = "./xmlOrder.csv";
-string _filePathClient = "./xmlClient.csv";
-var fileStorageOrder = FileStorageFactory<DbOrder>.GetCsvFileStorage(_filePathOrder);
-var fileStorageClient = FileStorageFactory<DbClient>.GetCsvFileStorage(_filePathClient);
-var orderRepository = new OrderRepository(fileStorageOrder);
-var clientRepository = new ClientRepository(fileStorageClient);
+string _filePathOrder = "./xmlOrder.xml";
+string _filePathClient = "./xmlClient.xml";
+var fileStorageOrder = FileStorageFactory<DbOrder>.GetXmlFileStorageAsync(_filePathOrder);
+var fileStorageClient = FileStorageFactory<DbClient>.GetXmlFileStorageAsync(_filePathClient);
+var dbRepository = new DbRepository("Server=localhost;Port=5432;User Id=postgres;Password=1111;Database=practice");
+var orderRepository = new OrderRepository(fileStorageOrder,dbRepository);
+var clientRepository = new ClientRepository(fileStorageClient,dbRepository);
 var clientServices = new ClientServices(clientRepository);
 var orderServices = new OrderServices(orderRepository, clientRepository);
 var operatorLogic = new OperatorLogic(orderServices);
@@ -28,13 +29,13 @@ while(N-- > 0)
     else if(userAnswer == "Client")
         Console.WriteLine(await ClientActionAsync(_idClient));
     else if(userAnswer == "Operator")
-        Console.WriteLine(OperatorAction(_idClient));
+        Console.WriteLine(OperatorActionAsync(_idClient));
     else if(userAnswer == "Exit")
         break;
 }
 
 
-async Task<string> ClientActionAsync(Guid idClient)
+async Task<string> ClientActionAsync(int idClient)
 {
     Console.WriteLine($"Get order\tGet orders\tDelete order\t Update order");
     Console.Write("Enter command to action: ");
@@ -50,7 +51,7 @@ async Task<string> ClientActionAsync(Guid idClient)
     else
         return "Error";
 }
-async Task<string> OperatorActionAsync(Guid idClient)
+async Task<string> OperatorActionAsync(int idClient)
 {
     Console.WriteLine("Create order\tUpdate order\tGet order");
     var command = Console.ReadLine();
@@ -63,17 +64,17 @@ async Task<string> OperatorActionAsync(Guid idClient)
     return "Error";
 }
 
-async Task<string> GetOrderAsync(Guid idClient)
+async Task<string> GetOrderAsync(int idClient)
 {
     Console.Write("Enter id order: ");
     string? idOrder = Console.ReadLine();
     if(string.IsNullOrEmpty(idOrder))
         return "Error id order";
-    var getOrder = await orderServices?.GetOrderAsync(Guid.Parse(idOrder));
+    var getOrder = await orderServices?.GetOrderAsync(int.Parse(idOrder));
     Console.WriteLine(getOrder.ToString());
     return "Get order completed successfully";
 }
-async Task<string> GetOrdersAsync(Guid idClient)
+async Task<string> GetOrdersAsync(int idClient)
 {
     var countOrder = await orderServices?.GetCountOrderAsync(idClient);
     int skip = 0;
@@ -92,16 +93,16 @@ async Task<string> GetOrdersAsync(Guid idClient)
         Console.WriteLine(ii.ToString());
     return "Get orders completed successfully";
 }
-async Task<string> DeleteOrderAsync(Guid idClient)
+async Task<string> DeleteOrderAsync(int idClient)
 {
     Console.Write("Enter id order to delete: ");
     var idOrderForDelete = Console.ReadLine();
     if(string.IsNullOrEmpty(idOrderForDelete))
         return await Task.Run(() => "Id order for delete is not corected");
-    await orderServices.DeleteOrderAsync(Guid.Parse(idOrderForDelete));
+    await orderServices.DeleteOrderAsync(int.Parse(idOrderForDelete));
     return "Delete order completed sucessfully"; 
 }
-async Task<string> ClientUpdateOrderAsync(Guid idClient)
+async Task<string> ClientUpdateOrderAsync(int idClient)
 {
     Console.Write("Enter id order to update: ");
     var idOrderForUpdate = Console.ReadLine();
@@ -112,10 +113,11 @@ async Task<string> ClientUpdateOrderAsync(Guid idClient)
     if(string.IsNullOrEmpty(idOrderForUpdate))
         return "Id order is empty";
     var newOrder = new Order {DateOrder = DateTime.Now,Description = description,Price = 123};
-    await orderServices.UpdateOrderAsync(newOrder, Guid.Parse(idOrderForUpdate));
+    await orderServices.UpdateOrderAsync(newOrder, int.Parse(idOrderForUpdate));
+    
     return "Update order completed successfully";
 }
-async Task<string> CreateOrderAsync(Guid idClient)
+async Task<string> CreateOrderAsync(int idClient)
 {
     Console.Write("Enter description order: ");
     var description = Console.ReadLine();
@@ -124,11 +126,10 @@ async Task<string> CreateOrderAsync(Guid idClient)
     Console.Write("Enter phone number client: ");
     var phoneNumberClient = Console.ReadLine();
     var newOrder = new Order {DateOrder = DateTime.Now, Description = description, Price = price};
-    for(int i = 0; i < 36; i++)
-        await orderServices.CreateOrderAsync(phoneNumberClient,newOrder);
+    await orderServices.CreateOrderAsync(phoneNumberClient,newOrder);
     return "Create order completed successfully";   
 }
-async Task<string> OperatorUpdateOrder(Guid idClient)
+async Task<string> OperatorUpdateOrder(int idClient)
 {
     Console.Write("Enter id order to update: ");
     var idOrderForUpdate = Console.ReadLine();
@@ -139,10 +140,10 @@ async Task<string> OperatorUpdateOrder(Guid idClient)
     var newOrder = new Order {DateOrder = DateTime.Now,Description = description,Price = 123};
     if(string.IsNullOrEmpty(idOrderForUpdate))
         return "Id order is empty";
-    await orderServices.UpdateOrderAsync(newOrder, Guid.Parse(idOrderForUpdate));
+    await orderServices.UpdateOrderAsync(newOrder, int.Parse(idOrderForUpdate));
     return "Update order completed successfully";
 }
-string OperatorGetOrder(Guid idClient)
+string OperatorGetOrder(int idClient)
 {
     return "Error";
 }

@@ -23,19 +23,20 @@ public sealed class OrderServices : IOrderServices
     /// <param name="description">
     ///     Description order
     /// </param>
-    public async Task<Guid> CreateOrderAsync(string phoneNumberClient, Order order)
+    public async Task<int> CreateOrderAsync(string phoneNumberClient, Order order)
     {
         var client = await _clientRepository.GetClientAsync(phoneNumberClient);
         if(client is not null)
         {
             var dbOrder = order.OrderToDbOrder();
             dbOrder.IdClient = client.Id;
-            return await _orderRepository.CreateAsync(dbOrder);
+            var idOrder = await _orderRepository.CreateAsync(dbOrder);
+            return idOrder;
         }
         else
             throw new Exception();
     }
-    public async Task<bool> DeleteOrderAsync(Guid orderId)
+    public async Task<bool> DeleteOrderAsync(int orderId)
     {
         var order = await _orderRepository.GetOrderAsync(orderId);
         await _orderRepository.DeleteAsync(order.Id);
@@ -52,12 +53,12 @@ public sealed class OrderServices : IOrderServices
         var dbOrder = await _orderRepository.GetOrderAsync(description);
         return dbOrder.DbOrderToOrder();
     }
-    public async Task<Order> GetOrderAsync(Guid orderId)
+    public async Task<Order> GetOrderAsync(int orderId)
     {
         var order = await _orderRepository.GetOrderAsync(orderId);
         return order.DbOrderToOrder();
     }
-    public IAsyncEnumerable<Order> GetOrdersAsync(Guid idClient) =>
+    public IAsyncEnumerable<Order> GetOrdersAsync(int idClient) =>
         _orderRepository.GetOrdersAsync()
             .Where(x => x.IdClient == idClient)
             .Select(x => x.DbOrderToOrder());
@@ -70,7 +71,7 @@ public sealed class OrderServices : IOrderServices
         _orderRepository.GetOrderAsync(fromDate, toDate)
             .Select(x => x.DbOrderToOrder());
  
-    public async IAsyncEnumerable<Order> GetOrdersAsync(int take, int skip, Guid idClient)
+    public async IAsyncEnumerable<Order> GetOrdersAsync(int take, int skip, int idClient)
     {
          if(take + skip <= await _orderRepository.GetOrdersAsync().CountAsync())
          {
@@ -82,9 +83,9 @@ public sealed class OrderServices : IOrderServices
         else
             throw new IndexOutOfRangeException();
     }
-    public async Task<int> GetCountOrderAsync(Guid idClient)
+    public async Task<int> GetCountOrderAsync(int idClient)
         => await _orderRepository.GetOrdersAsync().CountAsync();
-    public async Task UpdateOrderAsync(Order order, Guid orderId)
+    public async Task UpdateOrderAsync(Order order, int orderId)
     {
         var dbOrder = order.OrderToDbOrder();
         dbOrder.Id = orderId;

@@ -23,7 +23,7 @@ public sealed class ClientLogic
     /// <param name="orderId">
     ///     Order identificer for get order
     /// </param>
-    public Task<Order> GetOrderAsync(Guid orderId)
+    public Task<Order> GetOrderAsync(int orderId)
         => _orderServices.GetOrderAsync(orderId);
 
     /// <summary>
@@ -35,7 +35,7 @@ public sealed class ClientLogic
     /// <param name="skip">
     ///     Skip N element at list order
     /// </param>
-    public IAsyncEnumerable<Order> GetOrdersAsync(int take, int skip, Guid idClient)
+    public IAsyncEnumerable<Order> GetOrdersAsync(int take, int skip, int idClient)
         => _orderServices.GetOrdersAsync(take, skip,idClient);
     
     /// <summary>
@@ -44,7 +44,7 @@ public sealed class ClientLogic
     /// <param name="orderId">
     ///     Order identificer for delete order
     /// </param>
-    public Task<bool> DeleteOrderAsync(Guid orderId)
+    public Task<bool> DeleteOrderAsync(int orderId)
         => _orderServices.DeleteOrderAsync(orderId);
     
     /// <summary>
@@ -59,6 +59,6 @@ public sealed class ClientLogic
     /// <param name="phoneNumberClient">
     ///     Phone number client for call
     /// </param>
-    public Task UpdateOrderAsync(Order order, Guid orderId)
+    public Task UpdateOrderAsync(Order order, int orderId)
         => _orderServices.UpdateOrderAsync(order, orderId);
 }

@@ -7,5 +7,5 @@ public abstract record DbEntity
     /// <summary>
     ///     Represent identificed entity.
     /// </summary>
-    public Guid Id {get; set;}
+    public int Id {get; set;}
 }

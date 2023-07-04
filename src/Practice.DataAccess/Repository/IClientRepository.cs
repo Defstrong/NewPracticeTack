@@ -11,7 +11,7 @@ public interface IClientRepository : IBaseRepository<DbClient>
     /// </summary>
     /// <param name"description"> Order description</param>
     /// <returns>List of DbOrder</returs>
-    Task<DbClient> GetClientAsync(Guid idClient);
+    Task<DbClient> GetClientAsync(int idClient);
     IAsyncEnumerable<DbClient> GetByFirstNameAsync(string firstName);
     IAsyncEnumerable<DbClient> GetByLastNameAsync(string lastName);
     IAsyncEnumerable<DbClient> GetByAddressAsync(string address);
