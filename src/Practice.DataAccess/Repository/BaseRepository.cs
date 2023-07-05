@@ -10,9 +10,9 @@ public class BaseRepository<T> : IBaseRepository<T>
 {
     protected List<T> _entityList = new List<T>();
     private IFileStorage<T> _fileStorage;
-    private DbRepository _dbRepository;
+    private IDbRepository _dbRepository;
     private int IdEntity = 1;
-    public BaseRepository(IFileStorage<T> fileStorage, DbRepository dbRepository)
+    public BaseRepository(IFileStorage<T> fileStorage, IDbRepository dbRepository)
     {
         var taskFileStorage = Task.Run(async () =>
         {
@@ -66,7 +66,7 @@ public class BaseRepository<T> : IBaseRepository<T>
         return Task.Run(() =>
         {
             var entityForDelete = _entityList.Single(x => x.Id == id);
-            Console.WriteLine(_dbRepository.Delete(typeof(T).Name, id));
+            Console.WriteLine(_dbRepository.Delete(id));
             _entityList.Remove(entityForDelete);
             CommitAsync();
         });

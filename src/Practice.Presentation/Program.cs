@@ -4,9 +4,10 @@ string _filePathOrder = "./xmlOrder.xml";
 string _filePathClient = "./xmlClient.xml";
 var fileStorageOrder = FileStorageFactory<DbOrder>.GetXmlFileStorageAsync(_filePathOrder);
 var fileStorageClient = FileStorageFactory<DbClient>.GetXmlFileStorageAsync(_filePathClient);
-var dbRepository = new DbRepository("Server=localhost;Port=5432;User Id=postgres;Password=1111;Database=practice");
-var orderRepository = new OrderRepository(fileStorageOrder,dbRepository);
-var clientRepository = new ClientRepository(fileStorageClient,dbRepository);
+var dbOrderRepository = new DbOrderRepository("Server=localhost;Port=5432;User Id=postgres;Password=1111;Database=practice");
+var dbClientRepository = new DbClientRepository("Server=localhost;Port=5432;User Id=postgres;Password=1111;Database=practice");
+var orderRepository = new OrderRepository(fileStorageOrder, dbOrderRepository);
+var clientRepository = new ClientRepository(fileStorageClient, dbClientRepository);
 var clientServices = new ClientServices(clientRepository);
 var orderServices = new OrderServices(orderRepository, clientRepository);
 var operatorLogic = new OperatorLogic(orderServices);
@@ -91,6 +92,8 @@ async Task<string> GetOrdersAsync(int idClient)
     int balace = (int)countOrder % 10;
     await foreach(var ii in orderServices.GetOrdersAsync(balace, skip, idClient))
         Console.WriteLine(ii.ToString());
+    foreach(var item in dbOrderRepository.ReadAll().Select(x => (Order)x))
+        Console.WriteLine(item.ToString());
     return "Get orders completed successfully";
 }
 async Task<string> DeleteOrderAsync(int idClient)

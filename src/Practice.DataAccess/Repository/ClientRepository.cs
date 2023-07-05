@@ -2,7 +2,7 @@ namespace Practice.DataAccess;
 
 public sealed class ClientRepository : BaseRepository<DbClient>, IClientRepository
 {
-    public ClientRepository(IFileStorage<DbClient> fileStorage, DbRepository dbRepository)
+    public ClientRepository(IFileStorage<DbClient> fileStorage, IDbRepository dbRepository)
         :base(fileStorage, dbRepository)
         {
         }

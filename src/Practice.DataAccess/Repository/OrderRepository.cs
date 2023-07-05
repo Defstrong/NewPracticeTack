@@ -2,7 +2,7 @@ namespace Practice.DataAccess;
 
 public sealed class OrderRepository : BaseRepository<DbOrder>, IOrderRepository
 {
-    public OrderRepository(IFileStorage<DbOrder> fileStorage, DbRepository dbRepository)
+    public OrderRepository(IFileStorage<DbOrder> fileStorage, IDbRepository dbRepository)
         :base(fileStorage, dbRepository)
         {
 

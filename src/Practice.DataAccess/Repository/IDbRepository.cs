@@ -4,6 +4,7 @@ public interface IDbRepository
 {
     public string Create(DbEntity entity);
     public string Update(DbEntity dataForUpdate, int idForDeleteOrder);
-    public string Delete(string clientOrOrder, int idOrder);
-    public string Read(int idEntity);
+    public string Delete(int idOrder);
+    public IEnumerable<LogicalEntity> ReadAll();
+    public LogicalEntity ReadOne(int IdEntity);
 }
