@@ -1,10 +1,7 @@
 namespace Practice.DataAccess;
 
-public interface IDbRepository
+public interface IDbRepository<T> : IBaseRepository<T>
+    where T : DbEntity
 {
-    public string Create(DbEntity entity);
-    public string Update(DbEntity dataForUpdate, int idForDeleteOrder);
-    public string Delete(int idOrder);
-    public IEnumerable<LogicalEntity> ReadAll();
-    public LogicalEntity ReadOne(int IdEntity);
+    Task EnsureConnected(); 
 }

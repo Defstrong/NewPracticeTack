@@ -13,7 +13,7 @@ public interface IBaseRepository<T>
 {
     public Task<int> CreateAsync(T entity);
     public Task<T> GetAsync(int id);
-    public IAsyncEnumerable<T> GetAllAsync();
+    public Task<IEnumerable<T>> GetAllAsync();
     public Task UpdateAsync(T entity, int id);
     public Task DeleteAsync(int id);
 }

@@ -1,146 +1,104 @@
 using Npgsql;
+using System.Data;
 namespace Practice.DataAccess;
 
-public sealed class DbClientRepository : IDbRepository
+public sealed class DbClientRepository : IDbRepository<DbClient>
 {
-    private readonly string ConnectionString; 
-    private NpgsqlConnection? Connection;
-    public DbClientRepository(string connectionString)
+
+    private readonly NpgsqlConnection _connection;
+    public DbClientRepository(NpgsqlConnection connection)
     {
-        ConnectionString = connectionString;
+        _connection = connection;
     }
 
-    public string Create(DbEntity entity)
+    public Task EnsureConnected()
+        => _connection.State is not ConnectionState.Open ?
+           _connection.OpenAsync() : 
+            Task.CompletedTask;
+
+    public async Task<int> CreateAsync(DbClient client)
     {
-        OpenConnection();
+        await EnsureConnected();
 
         string createOrder = string.Format("INSERT INTO client (id_client, first_name, last_name, address, phone_number) VALUES (@id_client, @first_name, @last_name, @address, @phone_number)");
-        using NpgsqlCommand command = new NpgsqlCommand(createOrder, Connection);
+        using NpgsqlCommand command = new NpgsqlCommand(createOrder, _connection); 
 
-        DbClient client = (DbClient)entity;
+        command.Parameters.AddWithValue("@id_client", client.Id);
+        command.Parameters.AddWithValue("@first_name", client.FirstName);
+        command.Parameters.AddWithValue("@last_name", client.LastName);
+        command.Parameters.AddWithValue("@address", client.Address);
+        command.Parameters.AddWithValue("@phone_number", client.PhoneNumber);
 
-        try
-        {
-            command.Parameters.AddWithValue("@id_client", client.Id);
+        await command.ExecuteNonQueryAsync();
+
+        return client.Id;
+    }
+    
+    public async Task DeleteAsync(int id)
+    {
+        await EnsureConnected();
+
+        string sqlCommand = string.Format("DELETE FROM client WHERE id_client = @id_client"); 
+        using NpgsqlCommand command = new NpgsqlCommand(sqlCommand, _connection);
+
+        await command.ExecuteNonQueryAsync();
+    }
+    
+    public async Task UpdateAsync(DbClient client, int idOrder)
+    {
+        await EnsureConnected();
+
+        string sqlCommand = string.Format("UPDATE client SET first_name = @first_name, last_name = @last_name, address = @address, phone_number = @phone_number WHERE id_client = @id_client");
+        using NpgsqlCommand command = new NpgsqlCommand(sqlCommand, _connection);
+
             command.Parameters.AddWithValue("@first_name", client.FirstName);
             command.Parameters.AddWithValue("@last_name", client.LastName);
             command.Parameters.AddWithValue("@address", client.Address);
             command.Parameters.AddWithValue("@phone_number", client.PhoneNumber);
-            command.ExecuteNonQuery();
-            return "Create object completed successfully";
-        }
-        catch(Exception ex)
-        {
-            return $"Create object not completed. Error {ex.Message}";
-        }
-        finally
-        {
-            CloseConnection();
-        }
-    }
-    
-    public string Delete(int idOrder)
-    {
-        OpenConnection();
+            command.Parameters.AddWithValue("@id_client", client.Id);
         
-        string sqlCommand = string.Format("DELETE FROM client WHERE id_client = '{0}'", idOrder); 
-        using NpgsqlCommand command = new NpgsqlCommand(sqlCommand, Connection);
-
-        try
-        {
-            command.ExecuteNonQuery();
-            return "Delete client completed successfully";
-        }
-        catch(Exception ex)
-        {
-            return $"Sorry but delete client not completed. Exception {ex.Message}";
-        }
-        finally
-        {
-            CloseConnection();
-        }
-    }
-    
-    public string Update(DbEntity entity, int idForUpdateOrder)
-    {
-        OpenConnection();
-
-        DbClient client = (DbClient)entity;
-
-        string sqlCommand = string.Format("UPDATE client SET first_name = '{0}', last_name = '{1}', address = '{2}', phone_number = '{3}' WHERE id_client = '{4}'",
-                client.FirstName, client.LastName, client.Address, client.PhoneNumber, client.Id);
-        using NpgsqlCommand command = new NpgsqlCommand(sqlCommand, Connection);
-
-        try
-        {
-            command.ExecuteNonQuery();
-            return "Update object completed successfully";
-        }
-        catch(Exception ex)
-        {
-            return $"Sorry but update object not completed. Exception {ex.Message}";
-        }
-        finally
-        {
-            CloseConnection();
-        }
+        await command.ExecuteNonQueryAsync();
     }
 
-    public IEnumerable<LogicalEntity> ReadAll()
+    public async Task<DbClient> GetAsync(int idClient)
     {
-        OpenConnection();
+        await EnsureConnected();
 
-        string sqlCOmmand = "SELECT * FROM client";
-        List<Client> listEntity = new List<Client>();
+        string sqlCOmmand = string.Format("SELECT * FROM client WHERE id_client = '{0}' LIMIT 1", idClient);
+        using NpgsqlCommand command = new NpgsqlCommand(sqlCOmmand, _connection);
+        using NpgsqlDataReader reader = await command.ExecuteReaderAsync();
 
-        using NpgsqlCommand command = new NpgsqlCommand(sqlCOmmand, Connection);
-        using NpgsqlDataReader reader = command.ExecuteReader();
+        await reader.ReadAsync();
+
+        var client= new DbClient{
+                    FirstName = reader.GetString(1),
+                    LastName = reader.GetString(2),
+                    Address = reader.GetString(3),
+                    PhoneNumber = reader.GetString(4)};
+
+        return client; 
+    }
+
+    public async Task<IEnumerable<DbClient>> GetAllAsync()
+    {
+        await EnsureConnected();
+
+        string sqlCOmmand = "SELECT * FROM order_table";
+        List<DbClient> listEntity = new List<DbClient>();
+
+        using NpgsqlCommand command = new NpgsqlCommand(sqlCOmmand, _connection);
+        using NpgsqlDataReader reader = await command.ExecuteReaderAsync();
 
         while(reader.Read())
         {
             listEntity.Add(
-                new Client{
+                new DbClient{
                     FirstName = reader.GetString(1),
                     LastName = reader.GetString(2),
                     Address = reader.GetString(3),
                     PhoneNumber = reader.GetString(4)});
         }
 
-        reader.Close();
-        CloseConnection();
-
         return listEntity;
-    }
-
-    public LogicalEntity ReadOne(int idEntity)
-    {
-        OpenConnection();
-
-        string sqlCOmmand = string.Format("SELECT * FROM client WHERE id_order = '{0}' LIMIT 1", idEntity);
-
-        using NpgsqlCommand command = new NpgsqlCommand(sqlCOmmand, Connection);
-        using NpgsqlDataReader reader = command.ExecuteReader();
-        reader.Read();
-
-        var order = new Order{
-            DateOrder = DateTime.Parse(reader.GetString(1)), 
-            Description = reader.GetString(2), 
-            Price = (decimal)reader.GetValue(3)};
-
-        reader.Close();
-        CloseConnection();
-
-        return order;
-    }
-
-    private void OpenConnection()
-    {
-        Connection = new NpgsqlConnection(ConnectionString);
-        Connection.Open();
-    }
-
-    private void CloseConnection()
-    {
-        Connection?.Close();
     }
 }

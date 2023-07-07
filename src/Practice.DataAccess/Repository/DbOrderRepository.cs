@@ -1,140 +1,97 @@
 using Npgsql;
+using System.Data;
 namespace Practice.DataAccess;
 
-public sealed class DbOrderRepository : IDbRepository
+public sealed class DbOrderRepository : IDbRepository<DbOrder>
 {
-    private readonly string ConnectionString; 
-    private NpgsqlConnection? Connection;
-    public DbOrderRepository(string connectionString)
+    private readonly NpgsqlConnection _connection;
+    public DbOrderRepository(NpgsqlConnection connection)
     {
-        ConnectionString = connectionString;
+        _connection = connection;
     }
 
-    public string Create(DbEntity entity)
+    public Task EnsureConnected()
+        => _connection.State is not ConnectionState.Open ?
+           _connection.OpenAsync() : 
+            Task.CompletedTask;
+
+    public async Task<int> CreateAsync(DbOrder order)
     {
-        OpenConnection();
-        string createOrder = string.Format("INSERT INTO order_table (id_order, date_order, description, price) VALUES (@id_order, @date_order, @description, @price)");
-        DbOrder order = (DbOrder)entity;
-        
-        using NpgsqlCommand command = new NpgsqlCommand(createOrder, Connection); 
-        try
-        {
-            command.Parameters.AddWithValue("@id_order", order.Id);
-            command.Parameters.AddWithValue("@date_order", order.DateOrder);
-            command.Parameters.AddWithValue("@description", order.Description);
-            command.Parameters.AddWithValue("@price", order.Price);
-            command.ExecuteNonQuery();
-            return "Create object completed successfully";
-        }
-        catch(Exception ex)
-        {
-            return $"Create object not completed. Error {ex.Message}";
-        }
-        finally
-        {
-            CloseConnection();
-        }
+        await EnsureConnected();
+
+        string createOrder = "INSERT INTO order_table (id_order, date_order, description, price) VALUES (@id_order, @date_order, @description, @price";
+        using NpgsqlCommand command = new NpgsqlCommand(createOrder, _connection); 
+
+        command.Parameters.AddWithValue("@id_order", order.Id);
+        command.Parameters.AddWithValue("@date_order", order.DateOrder);
+        command.Parameters.AddWithValue("@description", order.Description);
+        command.Parameters.AddWithValue("@price", order.Price);
+
+        await command.ExecuteNonQueryAsync();
+
+        return order.Id;
     }
 
-    public string Delete(int idOrder)
+    public async Task<DbOrder> GetAsync(int idOrder)
     {
-        OpenConnection();
+        await EnsureConnected();
 
-        string sqlCommand = string.Format("DELETE FROM order_table WHERE id_order = '{0}'", idOrder);
-        using NpgsqlCommand command = new NpgsqlCommand(sqlCommand, Connection);
+        string sqlCOmmand = string.Format("SELECT * FROM order_table WHERE id_order = '{0}' LIMIT 1", idOrder);
+        using NpgsqlCommand command = new NpgsqlCommand(sqlCOmmand, _connection);
+        using NpgsqlDataReader reader = await command.ExecuteReaderAsync();
 
-        try
-        {
-            command.ExecuteNonQuery();
-            return "Delete order completed successfully";
-        }
-        catch(Exception ex)
-        {
-            return $"Sorry but delete order not completed. Exception {ex.Message}";
-        }
-        finally
-        {
-            CloseConnection();
-        }
-    }
-    
-    public string Update(DbEntity entity, int idForUpdateOrder)
-    {
-        OpenConnection();
-        
-        DbOrder order = (DbOrder)entity;
-        string sqlCommand = string.Format("UPDATE order_table SET description = '{0}' WHERE id_order = '{1}'",
-                order.Description, order.Id);
-        using NpgsqlCommand command = new NpgsqlCommand(sqlCommand, Connection);
+        await reader.ReadAsync();
 
-        try
-        {
-            command.ExecuteNonQuery();
-            return "Update object completed successfully";
-        }
-        catch(Exception ex)
-        {
-            return $"Sorry but update object not completed. Exception {ex.Message}";
-        }
-        finally
-        {
-            CloseConnection();
-        }
+        var order = new DbOrder{
+            DateOrder = DateTime.Parse(reader.GetString(1)), 
+            Description = reader.GetString(2), 
+            Price = decimal.Parse(reader.GetValue(3).ToString())};
+
+        return order; 
     }
 
-    public IEnumerable<LogicalEntity> ReadAll()
+    public async Task<IEnumerable<DbOrder>> GetAllAsync()
     {
-        OpenConnection();
+        await EnsureConnected();
 
         string sqlCOmmand = "SELECT * FROM order_table";
-        List<Order> listEntity = new List<Order>();
+        List<DbOrder> listEntity = new List<DbOrder>();
 
-        using NpgsqlCommand command = new NpgsqlCommand(sqlCOmmand, Connection);
-        using NpgsqlDataReader reader = command.ExecuteReader();
+        using NpgsqlCommand command = new NpgsqlCommand(sqlCOmmand, _connection);
+        using NpgsqlDataReader reader = await command.ExecuteReaderAsync();
 
         while(reader.Read())
         {
             listEntity.Add(
-                new Order{
+                new DbOrder{
                     DateOrder = DateTime.Parse(reader.GetString(1)), 
                     Description = reader.GetString(2), 
                     Price = decimal.Parse(reader.GetValue(3).ToString())});
         }
 
-        reader.Close();
-        CloseConnection();
-
         return listEntity;
     }
-    public LogicalEntity ReadOne(int idEntity)
+
+    public async Task UpdateAsync(DbOrder order, int idOrder)
     {
-        OpenConnection();
+        await EnsureConnected();
 
-        string sqlCOmmand = string.Format("SELECT * FROM order_table WHERE id_order = '{0}' LIMIT 1", idEntity);
+        string sqlCommand = string.Format("UPDATE order_table SET description = @description WHERE id_order = @id_order");
+        using NpgsqlCommand command = new NpgsqlCommand(sqlCommand, _connection);
 
-        using NpgsqlCommand command = new NpgsqlCommand(sqlCOmmand, Connection);
-        using NpgsqlDataReader reader = command.ExecuteReader();
-        reader.Read();
-
-        var order = new Order{
-            DateOrder = DateTime.Parse(reader.GetString(1)), 
-            Description = reader.GetString(2), 
-            Price = decimal.Parse(reader.GetValue(3).ToString())};
-
-        reader.Close();
-        CloseConnection();
-
-        return order;
+        command.Parameters.AddWithValue("@description", order.Description);
+        command.Parameters.AddWithValue("@id_order", idOrder);
+        
+        await command.ExecuteNonQueryAsync();
     }
 
-    private void OpenConnection()
+    public async Task DeleteAsync(int id)
     {
-        Connection = new NpgsqlConnection(ConnectionString);
-        Connection.Open();
-    }
+        await EnsureConnected();
 
-    private void CloseConnection()
-    {
-        Connection?.Close();
+        string sqlCommand = string.Format("DELETE FROM order_table WHERE id_order = @idOrder");
+        using NpgsqlCommand command = new NpgsqlCommand(sqlCommand, _connection);
+
+        await command.ExecuteNonQueryAsync();
     }
 }
